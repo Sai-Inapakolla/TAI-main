@@ -1,0 +1,144 @@
+<div class="min-h-screen bg-gray-50 dark:bg-slate-900 pb-20 transition-colors duration-500">
+    <!-- Nav -->
+    <nav class="bg-white dark:bg-slate-800 shadow-sm px-8 py-4 flex items-center gap-4 transition-colors duration-500 border-b border-transparent dark:border-slate-700">
+        <button mat-icon-button routerLink="/officer/dashboard" class="dark:text-slate-300">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <h1 class="text-xl font-bold text-gray-800 dark:text-white">Review Application #{{ applicant.id }}</h1>
+    </nav>
+
+    <div class="p-8 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+        <!-- Left Column: Details -->
+        <div class="lg:col-span-2 space-y-6 animate-fade-in-up">
+
+            <!-- Personal Info -->
+            <div class="glass-panel p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 bg-white dark:bg-slate-800 transition-colors duration-500">
+                <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-6 flex items-center gap-3">
+                    <div class="p-2 bg-blue-50 dark:bg-blue-900/30 rounded-lg text-blue-500"><mat-icon>person</mat-icon></div> 
+                    Personal Information
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                    <div class="p-4 rounded-xl bg-gray-50 dark:bg-slate-900/50 border border-transparent dark:border-slate-700/50">
+                        <div class="text-gray-500 dark:text-slate-400 mb-1">Full Name</div>
+                        <div class="font-bold text-gray-900 dark:text-slate-100 text-lg">{{ applicant.name }}</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-gray-50 dark:bg-slate-900/50 border border-transparent dark:border-slate-700/50">
+                        <div class="text-gray-500 dark:text-slate-400 mb-1">Mobile Number</div>
+                        <div class="font-bold text-gray-900 dark:text-slate-100 text-lg">{{ applicant.mobile }}</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-gray-50 dark:bg-slate-900/50 border border-transparent dark:border-slate-700/50">
+                        <div class="text-gray-500 dark:text-slate-400 mb-1">Age</div>
+                        <div class="font-bold text-gray-900 dark:text-slate-100 text-lg">{{ applicant.age }} Years</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-gray-50 dark:bg-slate-900/50 border border-transparent dark:border-slate-700/50">
+                        <div class="text-gray-500 dark:text-slate-400 mb-1">Gender</div>
+                        <div class="font-bold text-gray-900 dark:text-slate-100 text-lg">{{ applicant.gender }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Financial Info -->
+            <div class="glass-panel p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 bg-white dark:bg-slate-800 transition-colors duration-500">
+                <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-6 flex items-center gap-3">
+                    <div class="p-2 bg-green-50 dark:bg-green-900/30 rounded-lg text-green-500"><mat-icon>attach_money</mat-icon></div> 
+                    Financial Profile
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                    <div class="p-4 rounded-xl bg-gray-50 dark:bg-slate-900/50 border border-transparent dark:border-slate-700/50">
+                        <div class="text-gray-500 dark:text-slate-400 mb-1">Occupation</div>
+                        <div class="font-bold text-gray-900 dark:text-slate-100 text-lg">{{ applicant.occupation }}</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-gray-50 dark:bg-slate-900/50 border border-transparent dark:border-slate-700/50">
+                        <div class="text-gray-500 dark:text-slate-400 mb-1">Monthly Income</div>
+                        <div class="font-bold text-gray-900 dark:text-slate-100 text-lg">₹{{ applicant.income | number }}</div>
+                    </div>
+                    <div class="col-span-1 md:col-span-2 p-4 rounded-xl bg-gray-50 dark:bg-slate-900/50 border border-transparent dark:border-slate-700/50">
+                        <div class="text-gray-500 dark:text-slate-400 mb-2">Final CIBIL Score</div>
+                        <div class="flex flex-col sm:flex-row gap-3 items-center">
+                            <input type="number" [(ngModel)]="finalCibilScore"
+                                class="border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-800 dark:text-white rounded-lg px-4 py-2 w-full sm:w-48 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+                                placeholder="Enter Score">
+                            <button mat-flat-button color="accent" class="w-full sm:w-auto !py-1" (click)="runPrediction()">
+                                Analyze Score
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loan Info -->
+            <div class="glass-panel p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 bg-white dark:bg-slate-800 transition-colors duration-500">
+                <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-6 flex items-center gap-3">
+                    <div class="p-2 bg-purple-50 dark:bg-purple-900/30 rounded-lg text-purple-500"><mat-icon>home</mat-icon></div> 
+                    Loan Request
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                    <div class="p-4 rounded-xl bg-gray-50 dark:bg-slate-900/50 border border-transparent dark:border-slate-700/50">
+                        <div class="text-gray-500 dark:text-slate-400 mb-1">Requested Amount</div>
+                        <div class="font-bold text-gray-900 dark:text-slate-100 text-lg">₹{{ applicant.loanAmount | number }}</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-gray-50 dark:bg-slate-900/50 border border-transparent dark:border-slate-700/50">
+                        <div class="text-gray-500 dark:text-slate-400 mb-1">Tenure</div>
+                        <div class="font-bold text-gray-900 dark:text-slate-100 text-lg">{{ applicant.tenure }} Months</div>
+                    </div>
+                    <div class="col-span-1 md:col-span-2 p-4 rounded-xl bg-gray-50 dark:bg-slate-900/50 border border-transparent dark:border-slate-700/50">
+                        <div class="text-gray-500 dark:text-slate-400 mb-1">Purpose</div>
+                        <div class="font-bold text-gray-900 dark:text-slate-100 text-lg">Home Renovation</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right Column: AI Analysis -->
+        <div class="lg:col-span-1 space-y-6 animate-fade-in-up" style="animation-delay: 0.1s;">
+            <!-- AI Panel -->
+            <div class="bg-gradient-to-br from-indigo-900 to-blue-900 dark:from-slate-800 dark:to-indigo-950 text-white p-8 rounded-2xl shadow-lg border border-transparent dark:border-indigo-500/30 relative overflow-hidden transition-colors duration-500">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl -mr-10 -mt-10"></div>
+                
+                <h3 class="text-xl font-bold mb-8 flex items-center gap-2 relative z-10">
+                    <mat-icon>psychology</mat-icon> AI Risk Analysis
+                </h3>
+
+                <div class="text-center mb-8 relative z-10">
+                    <div class="inline-flex justify-center items-center w-36 h-36 rounded-full border-[10px] border-emerald-400 dark:border-emerald-500/80 mb-4 bg-black/20 shadow-inner">
+                        <span class="text-4xl font-extrabold">{{ applicant.approvalProbability }}%</span>
+                    </div>
+                    <p class="text-blue-200 dark:text-indigo-200 font-medium tracking-wide">Approval Probability</p>
+                </div>
+
+                <div class="space-y-5 bg-black/20 p-5 rounded-xl border border-white/10 relative z-10">
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-blue-200 dark:text-slate-300 font-medium">Risk Level</span>
+                        <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3 py-1 rounded-full font-bold text-xs uppercase tracking-wider">{{ applicant.risk }}</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-blue-200 dark:text-slate-300 font-medium">Fraud Check</span>
+                        <span class="text-emerald-400 font-bold flex items-center gap-1 bg-emerald-500/10 px-3 py-1 rounded-full"><mat-icon class="text-sm">verified</mat-icon> Passed</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm" *ngIf="applicant.eligibleAmount > 0">
+                        <span class="text-blue-200 dark:text-slate-300 font-medium">Eligible Amount</span>
+                        <span class="text-white font-bold text-lg">₹{{ applicant.eligibleAmount | number:'1.0-0' }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Decision Box -->
+            <div class="glass-panel p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 bg-white dark:bg-slate-800 transition-colors duration-500">
+                <h3 class="font-bold text-gray-800 dark:text-white mb-2 text-lg">Officer Decision</h3>
+                <p class="text-gray-500 dark:text-slate-400 text-sm mb-6">Review the AI recommendations and take a final action.</p>
+
+                <div class="flex flex-col gap-3">
+                    <button class="w-full py-4 text-white font-bold rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 shadow-md flex items-center justify-center gap-2 transition-all hover:-translate-y-1" (click)="approveLoan()">
+                        <mat-icon>check_circle</mat-icon> Approve Loan
+                    </button>
+                    <button mat-stroked-button color="warn" class="w-full !rounded-xl !py-2 font-bold dark:!border-red-500/50" (click)="rejectLoan()">
+                        <mat-icon>cancel</mat-icon> Reject Loan
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

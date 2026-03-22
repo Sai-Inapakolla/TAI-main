@@ -1,0 +1,322 @@
+<div class="flex h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white overflow-hidden transition-colors duration-500">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white dark:bg-slate-800 flex flex-col border-r border-slate-200 dark:border-slate-700 shadow-[4px_0_24px_rgba(0,0,0,0.02)] dark:shadow-none transition-colors duration-500 z-10">
+        <div class="p-6">
+            <h2 class="text-2xl font-extrabold bg-gradient-to-r from-red-600 to-orange-500 dark:from-red-500 dark:to-orange-400 bg-clip-text text-transparent flex items-center gap-2">
+                <mat-icon class="text-red-600 dark:text-red-500">security</mat-icon>
+                Admin
+            </h2>
+        </div>
+
+        <nav class="flex-1 px-4 py-4 space-y-2 overflow-y-auto">
+            <a (click)="setView('dashboard')" 
+                [class.bg-red-50]="currentView === 'dashboard'" [class.dark:bg-red-900_30]="currentView === 'dashboard'"
+                [class.text-red-600]="currentView === 'dashboard'" [class.dark:text-red-400]="currentView === 'dashboard'"
+                [class.border-red-200]="currentView === 'dashboard'" [class.dark:border-red-800_50]="currentView === 'dashboard'"
+                [class.border-l-4]="currentView === 'dashboard'"
+                [class.text-slate-600]="currentView !== 'dashboard'" [class.dark:text-slate-400]="currentView !== 'dashboard'"
+                [class.border-transparent]="currentView !== 'dashboard'" [class.border-l-4]="currentView !== 'dashboard'"
+                [class.hover:bg-slate-100]="currentView !== 'dashboard'" [class.dark:hover:bg-slate-700]="currentView !== 'dashboard'"
+                class="flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer transition-all font-bold group border">
+                <mat-icon [class.text-slate-400]="currentView !== 'dashboard'" [class.group-hover:text-red-400]="currentView !== 'dashboard'">dashboard</mat-icon>
+                <span>Overview</span>
+            </a>
+            <a (click)="setView('banks')" 
+                [class.bg-red-50]="currentView === 'banks'" [class.dark:bg-red-900_30]="currentView === 'banks'"
+                [class.text-red-600]="currentView === 'banks'" [class.dark:text-red-400]="currentView === 'banks'"
+                [class.border-red-200]="currentView === 'banks'" [class.dark:border-red-800_50]="currentView === 'banks'"
+                [class.border-l-4]="currentView === 'banks'"
+                [class.text-slate-600]="currentView !== 'banks'" [class.dark:text-slate-400]="currentView !== 'banks'"
+                [class.border-transparent]="currentView !== 'banks'" [class.border-l-4]="currentView !== 'banks'"
+                [class.hover:bg-slate-100]="currentView !== 'banks'" [class.dark:hover:bg-slate-700]="currentView !== 'banks'"
+                class="flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer transition-all font-bold group border">
+                <mat-icon [class.text-slate-400]="currentView !== 'banks'" [class.group-hover:text-red-400]="currentView !== 'banks'">account_balance</mat-icon>
+                <span>Bank Analytics</span>
+            </a>
+            <a (click)="setView('officers')" 
+                [class.bg-red-50]="currentView === 'officers'" [class.dark:bg-red-900_30]="currentView === 'officers'"
+                [class.text-red-600]="currentView === 'officers'" [class.dark:text-red-400]="currentView === 'officers'"
+                [class.border-red-200]="currentView === 'officers'" [class.dark:border-red-800_50]="currentView === 'officers'"
+                [class.border-l-4]="currentView === 'officers'"
+                [class.text-slate-600]="currentView !== 'officers'" [class.dark:text-slate-400]="currentView !== 'officers'"
+                [class.border-transparent]="currentView !== 'officers'" [class.border-l-4]="currentView !== 'officers'"
+                [class.hover:bg-slate-100]="currentView !== 'officers'" [class.dark:hover:bg-slate-700]="currentView !== 'officers'"
+                class="flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer transition-all font-bold group border">
+                <mat-icon [class.text-slate-400]="currentView !== 'officers'" [class.group-hover:text-red-400]="currentView !== 'officers'">badge</mat-icon>
+                <span>Officers</span>
+            </a>
+            <a (click)="setView('fraud')" 
+                [class.bg-red-50]="currentView === 'fraud'" [class.dark:bg-red-900_30]="currentView === 'fraud'"
+                [class.text-red-600]="currentView === 'fraud'" [class.dark:text-red-400]="currentView === 'fraud'"
+                [class.border-red-200]="currentView === 'fraud'" [class.dark:border-red-800_50]="currentView === 'fraud'"
+                [class.border-l-4]="currentView === 'fraud'"
+                [class.text-slate-600]="currentView !== 'fraud'" [class.dark:text-slate-400]="currentView !== 'fraud'"
+                [class.border-transparent]="currentView !== 'fraud'" [class.border-l-4]="currentView !== 'fraud'"
+                [class.hover:bg-slate-100]="currentView !== 'fraud'" [class.dark:hover:bg-slate-700]="currentView !== 'fraud'"
+                class="flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer transition-all font-bold group border">
+                <mat-icon [class.text-slate-400]="currentView !== 'fraud'" [class.group-hover:text-red-400]="currentView !== 'fraud'">policy</mat-icon>
+                <span>Fraud & Risk</span>
+            </a>
+            <a (click)="setView('users')" 
+                [class.bg-red-50]="currentView === 'users'" [class.dark:bg-red-900_30]="currentView === 'users'"
+                [class.text-red-600]="currentView === 'users'" [class.dark:text-red-400]="currentView === 'users'"
+                [class.border-red-200]="currentView === 'users'" [class.dark:border-red-800_50]="currentView === 'users'"
+                [class.border-l-4]="currentView === 'users'"
+                [class.text-slate-600]="currentView !== 'users'" [class.dark:text-slate-400]="currentView !== 'users'"
+                [class.border-transparent]="currentView !== 'users'" [class.border-l-4]="currentView !== 'users'"
+                [class.hover:bg-slate-100]="currentView !== 'users'" [class.dark:hover:bg-slate-700]="currentView !== 'users'"
+                class="flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer transition-all font-bold group border">
+                <mat-icon [class.text-slate-400]="currentView !== 'users'" [class.group-hover:text-red-400]="currentView !== 'users'">people</mat-icon>
+                <span>User Management</span>
+            </a>
+        </nav>
+
+        <div class="p-4 border-t border-slate-200 dark:border-slate-700">
+            <button (click)="logout()"
+                class="flex items-center justify-center gap-2 w-full px-4 py-3 text-red-500 font-bold hover:bg-slate-100 dark:hover:bg-slate-700/50 rounded-lg transition-colors border border-transparent hover:border-red-200 dark:hover:border-slate-600">
+                <mat-icon>power_settings_new</mat-icon>
+                <span>Logout System</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-auto p-8 relative">
+
+        <!-- Header -->
+        <header class="mb-10 flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+            <div>
+                <h1 class="text-3xl font-extrabold capitalize text-slate-800 dark:text-white">{{ currentView }} Pulse</h1>
+                <p class="text-slate-500 dark:text-slate-400 font-medium tracking-wide">Real-time macro system insights</p>
+            </div>
+            <div class="flex items-center gap-5">
+                <!-- Theme Toggle -->
+                <button (click)="toggleTheme()"
+                    class="p-2 rounded-full bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors text-slate-600 dark:text-slate-300">
+                    <mat-icon>{{ isDarkMode ? 'light_mode' : 'dark_mode' }}</mat-icon>
+                </button>
+
+                <div class="hidden md:flex items-center gap-3 bg-white dark:bg-slate-800 px-4 py-2 rounded-full shadow-sm border border-slate-200 dark:border-slate-700 font-bold text-sm">
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-r from-red-600 to-orange-500 flex items-center justify-center text-white shadow-inner shadow-red-900/50">M</div>
+                    <span class="text-slate-700 dark:text-slate-200">Master Admin</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content: Dashboard -->
+        <div *ngIf="currentView === 'dashboard'" class="animate-fadeIn">
+            <!-- KPI Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <!-- Card -->
+                <div class="glass-panel bg-white/90 dark:bg-slate-800/90 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:-translate-y-1 hover:shadow-md transition-all duration-300">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-3 bg-blue-50 dark:bg-blue-900/30 rounded-xl text-blue-600 dark:text-blue-400">
+                            <mat-icon>description</mat-icon>
+                        </div>
+                        <span class="text-emerald-500 dark:text-emerald-400 text-xs font-bold">+12%</span>
+                    </div>
+                    <h3 class="text-slate-500 dark:text-slate-400 text-sm font-bold uppercase tracking-wider">Total Applications</h3>
+                    <p class="text-4xl font-extrabold mt-2 text-slate-800 dark:text-white">{{ stats.total_applications }}</p>
+                </div>
+                <!-- Card -->
+                <div class="glass-panel bg-white/90 dark:bg-slate-800/90 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:-translate-y-1 hover:shadow-md transition-all duration-300">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-3 bg-emerald-50 dark:bg-emerald-900/30 rounded-xl text-emerald-600 dark:text-emerald-400">
+                            <mat-icon>check_circle</mat-icon>
+                        </div>
+                    </div>
+                    <h3 class="text-slate-500 dark:text-slate-400 text-sm font-bold uppercase tracking-wider">Approved Loans</h3>
+                    <p class="text-4xl font-extrabold mt-2 text-slate-800 dark:text-white">{{ stats.approved_loans }}</p>
+                </div>
+                <!-- Card -->
+                <div class="glass-panel bg-white/90 dark:bg-slate-800/90 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:-translate-y-1 hover:shadow-md transition-all duration-300">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-3 bg-rose-50 dark:bg-rose-900/30 rounded-xl text-rose-600 dark:text-rose-400">
+                            <mat-icon>cancel</mat-icon>
+                        </div>
+                    </div>
+                    <h3 class="text-slate-500 dark:text-slate-400 text-sm font-bold uppercase tracking-wider">Rejected Loans</h3>
+                    <p class="text-4xl font-extrabold mt-2 text-slate-800 dark:text-white">{{ stats.rejected_loans }}</p>
+                </div>
+                <!-- Card -->
+                <div class="glass-panel bg-white/90 dark:bg-slate-800/90 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:-translate-y-1 hover:shadow-md transition-all duration-300">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-3 bg-orange-50 dark:bg-orange-900/30 rounded-xl text-orange-600 dark:text-orange-400">
+                            <mat-icon>warning</mat-icon>
+                        </div>
+                    </div>
+                    <h3 class="text-slate-500 dark:text-slate-400 text-sm font-bold uppercase tracking-wider">Fraud Alerts</h3>
+                    <p class="text-4xl font-extrabold mt-2 text-slate-800 dark:text-white">{{ stats.fraud_reports }}</p>
+                </div>
+                <!-- Card -->
+                <div class="glass-panel bg-white/90 dark:bg-slate-800/90 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:-translate-y-1 hover:shadow-md transition-all duration-300">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-3 bg-indigo-50 dark:bg-indigo-900/30 rounded-xl text-indigo-600 dark:text-indigo-400">
+                            <mat-icon>badge</mat-icon>
+                        </div>
+                    </div>
+                    <h3 class="text-slate-500 dark:text-slate-400 text-sm font-bold uppercase tracking-wider">Active Officers</h3>
+                    <p class="text-4xl font-extrabold mt-2 text-slate-800 dark:text-white">{{ stats.active_officers }}</p>
+                </div>
+                <!-- Card -->
+                <div class="glass-panel bg-white/90 dark:bg-slate-800/90 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:-translate-y-1 hover:shadow-md transition-all duration-300">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-3 bg-slate-100 dark:bg-slate-700 rounded-xl text-slate-600 dark:text-slate-300">
+                            <mat-icon>block</mat-icon>
+                        </div>
+                    </div>
+                    <h3 class="text-slate-500 dark:text-slate-400 text-sm font-bold uppercase tracking-wider">Blocked Users</h3>
+                    <p class="text-4xl font-extrabold mt-2 text-slate-800 dark:text-white">{{ stats.blocked_users }}</p>
+                </div>
+            </div>
+            
+            <!-- Overview Chart -->
+            <div class="glass-panel bg-white/90 dark:bg-slate-800/90 p-8 rounded-2xl border border-slate-100 dark:border-slate-700 mb-8 shadow-sm">
+                <h2 class="text-xl font-bold mb-6 text-slate-800 dark:text-white">Application Status Distribution</h2>
+                <div class="h-64">
+                    <canvas baseChart [data]="overviewChartData" [options]="overviewChartOptions"
+                        [type]="overviewChartType"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content: Bank Analytics -->
+        <div *ngIf="currentView === 'banks'" class="animate-fadeIn">
+            <div class="glass-panel bg-white/90 dark:bg-slate-800/90 p-8 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm">
+                <h2 class="text-xl font-bold mb-6 text-slate-800 dark:text-white">Approval Performance by Bank</h2>
+                <div class="h-96">
+                    <canvas baseChart [data]="barChartData" [options]="barChartOptions" [type]="barChartType"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content: Officer Monitoring -->
+        <div *ngIf="currentView === 'officers'" class="animate-fadeIn">
+            <!-- Officer Analytics Chart -->
+            <div class="glass-panel bg-white/90 dark:bg-slate-800/90 p-8 rounded-2xl border border-slate-100 dark:border-slate-700 mb-8 shadow-sm">
+                <h2 class="text-xl font-bold mb-6 text-slate-800 dark:text-white">Officer Performance</h2>
+                <div class="h-64">
+                    <canvas baseChart [data]="officerChartData" [options]="officerChartOptions" [type]="'bar'"></canvas>
+                </div>
+            </div>
+
+            <div class="glass-panel bg-white/90 dark:bg-slate-800/90 rounded-2xl border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm">
+                <table class="w-full text-left">
+                    <thead class="bg-slate-50 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400 uppercase text-xs font-bold tracking-wider">
+                        <tr>
+                            <th class="px-6 py-5">Officer Name</th>
+                            <th class="px-6 py-5">Assigned Bank</th>
+                            <th class="px-6 py-5">Processed</th>
+                            <th class="px-6 py-5">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 dark:divide-slate-700/50">
+                        <tr *ngFor="let officer of officers" class="hover:bg-slate-50/50 dark:hover:bg-slate-700/20 transition-colors">
+                            <td class="px-6 py-4 font-bold text-slate-800 dark:text-slate-200">{{ officer.name }}</td>
+                            <td class="px-6 py-4 text-slate-600 dark:text-slate-400">{{ officer.bank }}</td>
+                            <td class="px-6 py-4 text-slate-600 dark:text-slate-400">{{ officer.processed }} Apps</td>
+                            <td class="px-6 py-4">
+                                <span class="px-3 py-1 bg-emerald-50 text-emerald-600 border border-emerald-200 dark:border-emerald-800/50 dark:bg-emerald-900/20 dark:text-emerald-400 rounded-full text-xs font-bold uppercase tracking-widest">Active</span>
+                            </td>
+                        </tr>
+                        <tr *ngIf="officers.length === 0">
+                            <td colspan="4" class="px-6 py-10 text-center text-slate-500 dark:text-slate-400 font-medium tracking-wide">No active officers found.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Content: Fraud Panel -->
+        <div *ngIf="currentView === 'fraud'" class="animate-fadeIn">
+            <!-- Fraud Analytics Chart -->
+            <div class="glass-panel bg-white/90 dark:bg-slate-800/90 p-8 rounded-2xl border border-slate-100 dark:border-slate-700 mb-8 shadow-sm">
+                <h2 class="text-xl font-bold mb-6 text-slate-800 dark:text-white">Fraud Cases by Status</h2>
+                <div class="h-64">
+                    <canvas baseChart [data]="fraudChartData" [options]="fraudChartOptions" [type]="'bar'"></canvas>
+                </div>
+            </div>
+
+            <div class="glass-panel bg-white/90 dark:bg-slate-800/90 rounded-2xl border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm">
+                <table class="w-full text-left">
+                    <thead class="bg-slate-50 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400 uppercase text-xs font-bold tracking-wider">
+                        <tr>
+                            <th class="px-6 py-5">Application ID</th>
+                            <th class="px-6 py-5">User</th>
+                            <th class="px-6 py-5">Type</th>
+                            <th class="px-6 py-5">Status</th>
+                            <th class="px-6 py-5">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 dark:divide-slate-700/50">
+                        <tr *ngFor="let case of fraudCases" class="hover:bg-slate-50/50 dark:hover:bg-slate-700/20 transition-colors">
+                            <td class="px-6 py-4 font-mono text-sm text-slate-500 dark:text-slate-400 font-bold">{{ case._id }}</td>
+                            <td class="px-6 py-4 font-bold text-slate-800 dark:text-slate-200">{{ case.input?.Name || 'Unknown' }}</td>
+                            <td class="px-6 py-4 text-orange-600 dark:text-orange-400 font-bold flex items-center gap-1"><mat-icon class="text-[16px] w-[16px] h-[16px]">warning</mat-icon> Suspected Fraud</td>
+                            <td class="px-6 py-4 text-slate-800 dark:text-white font-bold uppercase text-xs tracking-wider">{{ case.status }}</td>
+                            <td class="px-6 py-4">
+                                <button class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-bold bg-blue-50 dark:bg-slate-700 px-3 py-1 rounded-md transition-colors">Review</button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="fraudCases.length === 0">
+                            <td colspan="5" class="px-6 py-10 text-center text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/10 font-bold tracking-wide border border-emerald-100 dark:border-emerald-900/30 m-4 rounded-xl shadow-inner">
+                                <mat-icon class="align-middle mr-2">verified_user</mat-icon> No active fraud alerts. System is clean.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Content: User Management -->
+        <div *ngIf="currentView === 'users'" class="animate-fadeIn">
+            <!-- User Analytics Chart -->
+            <div class="glass-panel bg-white/90 dark:bg-slate-800/90 p-8 rounded-2xl border border-slate-100 dark:border-slate-700 mb-8 shadow-sm">
+                <h2 class="text-xl font-bold mb-6 text-slate-800 dark:text-white">Top Active Users by Applications</h2>
+                <div class="h-80">
+                    <canvas baseChart [data]="userBarChartData" [options]="userBarChartOptions" [type]="userBarChartType"></canvas>
+                </div>
+            </div>
+
+            <!-- User List Table -->
+            <div class="glass-panel bg-white/90 dark:bg-slate-800/90 rounded-2xl border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm">
+                <table class="w-full text-left">
+                    <thead class="bg-slate-50 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400 uppercase text-xs font-bold tracking-wider">
+                        <tr>
+                            <th class="px-6 py-5">User Name</th>
+                            <th class="px-6 py-5">Mobile</th>
+                            <th class="px-6 py-5">Total Applications</th>
+                            <th class="px-6 py-5">Last Status</th>
+                            <th class="px-6 py-5">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 dark:divide-slate-700/50">
+                        <tr *ngFor="let user of users"
+                            class="hover:bg-slate-50/50 dark:hover:bg-slate-700/20 transition-colors"
+                            [class.bg-red-50]="user.is_blocked" [class.dark:bg-red-900_10]="user.is_blocked">
+                            <td class="px-6 py-4 font-bold text-slate-800 dark:text-slate-200" [class.line-through]="user.is_blocked" [class.opacity-50]="user.is_blocked">{{ user.name }}</td>
+                            <td class="px-6 py-4 font-mono text-slate-600 dark:text-slate-400" [class.opacity-50]="user.is_blocked">{{ user.mobile }}</td>
+                            <td class="px-6 py-4 font-bold text-slate-800 dark:text-white text-lg" [class.opacity-50]="user.is_blocked">{{ user.applications }}</td>
+                            <td class="px-6 py-4" [class.opacity-50]="user.is_blocked">
+                                <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border shadow-sm" [ngClass]="{'bg-emerald-50 border-emerald-200 text-emerald-700 dark:bg-emerald-900/30 dark:border-emerald-800/50 dark:text-emerald-400': user.last_status === 'approved', 
+                                              'bg-red-50 border-red-200 text-red-700 dark:bg-red-900/30 dark:border-red-800/50 dark:text-red-400': user.last_status === 'rejected', 'bg-slate-100 border-slate-200 text-slate-600 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-300': !user.last_status || (user.last_status !== 'approved' && user.last_status !== 'rejected')}">
+                                    {{ user.last_status || 'N/A' }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <button (click)="toggleBlockUser(user)" [class.text-rose-600]="!user.is_blocked" [class.dark:text-rose-400]="!user.is_blocked" [class.hover:bg-rose-50]="!user.is_blocked" [class.dark:hover:bg-rose-900_30]="!user.is_blocked"
+                                    [class.text-emerald-600]="user.is_blocked" [class.dark:text-emerald-400]="user.is_blocked" [class.hover:bg-emerald-50]="user.is_blocked" [class.dark:hover:bg-emerald-900_30]="user.is_blocked"
+                                    class="font-bold border border-transparent hover:border-current px-4 py-2 rounded-lg transition-all flex items-center gap-2">
+                                    <mat-icon class="text-[18px] w-[18px] h-[18px]">{{ user.is_blocked ? 'lock_open' : 'block' }}</mat-icon>
+                                    {{ user.is_blocked ? 'Unblock User' : 'Block User' }}
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+</div>

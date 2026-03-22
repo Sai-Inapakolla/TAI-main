@@ -1,0 +1,23 @@
+# Flask Backend Dependencies
+Flask==3.1.2
+Flask-PyMongo==3.0.1
+Flask-CORS==5.0.0
+
+# MongoDB
+pymongo==4.16.0
+dnspython==2.8.0
+
+# Environment Variables
+python-dotenv==1.0.0
+
+# Data Processing
+pandas==2.2.0
+numpy==1.26.3
+
+# Machine Learning
+scikit-learn==1.4.0
+xgboost==2.0.3
+joblib==1.5.3
+
+# Utilities
+pickle5==0.0.11

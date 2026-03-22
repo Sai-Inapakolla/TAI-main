@@ -1,0 +1,47 @@
+<div class="min-h-screen relative p-4 flex justify-center items-center overflow-hidden bg-slate-50 dark:bg-slate-900 transition-colors duration-500">
+    <!-- Animated background decorators -->
+    <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <div class="absolute top-[10%] left-[20%] w-[500px] h-[500px] bg-red-200 dark:bg-red-900/30 rounded-full mix-blend-multiply filter blur-[100px] opacity-40 animate-pulse"></div>
+        <div class="absolute bottom-[10%] right-[20%] w-[600px] h-[600px] bg-orange-200 dark:bg-orange-900/30 rounded-full mix-blend-multiply filter blur-[120px] opacity-30 animate-pulse delay-700"></div>
+    </div>
+
+    <div class="glass-panel relative w-full max-w-md p-10 shadow-2xl bg-white/70 dark:bg-slate-800/70 backdrop-blur-2xl rounded-[2.5rem] z-10 border border-white/60 dark:border-white/10 transition-colors duration-500 text-center animate-fade-in-up">
+        
+        <div class="inline-flex items-center justify-center w-20 h-20 bg-red-50 dark:bg-red-500/10 rounded-[2rem] mb-6 text-red-600 dark:text-red-400 shadow-inner">
+            <mat-icon class="scale-[2]">security</mat-icon>
+        </div>
+        
+        <h1 class="text-3xl font-extrabold text-slate-800 dark:text-white mb-2">Admin Portal</h1>
+        <p class="text-slate-500 dark:text-slate-400 font-medium mb-8">Secure access to central system</p>
+        
+        <div class="flex flex-col gap-5 text-left">
+            <div class="flex flex-col group relative">
+                <label class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 group-focus-within:text-red-500 dark:group-focus-within:text-red-400 transition-colors">Admin Username</label>
+                <div class="relative flex items-center">
+                    <span class="absolute left-5 text-slate-400 dark:text-slate-500"><mat-icon>person</mat-icon></span>
+                    <input [(ngModel)]="username" type="text" placeholder="Enter username"
+                           class="w-full pl-14 pr-5 py-4 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-red-500 focus:ring-4 focus:ring-red-500/10 transition-all duration-300 outline-none text-slate-700 dark:text-slate-200 shadow-sm placeholder-slate-400 dark:placeholder-slate-500">
+                </div>
+            </div>
+
+            <div class="flex flex-col group relative">
+                <label class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 group-focus-within:text-red-500 dark:group-focus-within:text-red-400 transition-colors">Master Password</label>
+                <div class="relative flex items-center">
+                    <span class="absolute left-5 text-slate-400 dark:text-slate-500"><mat-icon>lock</mat-icon></span>
+                    <input [(ngModel)]="password" type="password" placeholder="Enter password"
+                           class="w-full pl-14 pr-5 py-4 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-red-500 focus:ring-4 focus:ring-red-500/10 transition-all duration-300 outline-none text-slate-700 dark:text-slate-200 shadow-sm tracking-widest placeholder-slate-400 dark:placeholder-slate-500">
+                </div>
+            </div>
+
+            <p *ngIf="errorMessage" class="text-red-500 text-sm font-bold text-center mt-2 animate-bounce">{{ errorMessage }}</p>
+
+            <button class="mt-4 px-8 py-4 bg-gradient-to-r from-red-600 to-orange-500 dark:from-red-700 dark:to-orange-600 text-white font-bold rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 hover:from-red-500 hover:to-orange-400 transition-all duration-300"
+                (click)="onLogin()">
+                Access Dashboard
+            </button>
+            <div class="text-center mt-4">
+                <a routerLink="/" class="text-sm font-bold text-slate-400 dark:text-slate-500 hover:text-red-500 dark:hover:text-red-400 transition-colors">← Back to System</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,323 @@
+<div class="min-h-screen relative p-4 md:p-8 flex justify-center items-start overflow-hidden bg-slate-50 dark:bg-slate-900 transition-colors duration-500">
+    <!-- Animated modern background elements -->
+    <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <div class="absolute -top-[20%] -left-[10%] w-[600px] h-[600px] bg-sky-200 dark:bg-sky-600 rounded-full mix-blend-multiply filter blur-[120px] opacity-40 dark:opacity-20 animate-pulse"></div>
+        <div class="absolute -bottom-[20%] -right-[10%] w-[700px] h-[700px] bg-teal-200 dark:bg-teal-600 rounded-full mix-blend-multiply filter blur-[120px] opacity-40 dark:opacity-20 animate-pulse delay-700"></div>
+        <div class="absolute top-[20%] left-[60%] w-[400px] h-[400px] bg-blue-200 dark:bg-blue-600 rounded-full mix-blend-multiply filter blur-[120px] opacity-30 dark:opacity-20 animate-pulse delay-1000"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="glass-panel relative w-full max-w-5xl p-6 md:p-12 shadow-2xl bg-white/70 dark:bg-slate-800/70 backdrop-blur-2xl rounded-[2.5rem] z-10 border border-white/60 dark:border-white/10 transition-colors duration-500">
+        
+        <!-- Header -->
+        <div class="mb-12 text-center animate-fade-in-up">
+            <div class="inline-flex items-center justify-center p-3 bg-blue-50 dark:bg-blue-500/10 rounded-2xl mb-4 text-blue-600 dark:text-blue-400 shadow-inner">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+            <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-800 dark:text-white">
+                AI Loan <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500 dark:from-blue-400 dark:to-teal-400">Eligibility</span>
+            </h2>
+            <p class="text-slate-500 dark:text-slate-400 text-lg md:text-xl font-medium max-w-2xl mx-auto">
+                Fill in these fast, secure details and let our intelligence engine predict your approval odds in milliseconds.
+            </p>
+        </div>
+
+        <mat-stepper [linear]="isLinear" #stepper class="bg-transparent animate-fade-in-up" style="animation-delay: 0.1s;">
+            
+            <!-- Step 1: Personal Details -->
+            <mat-step [stepControl]="firstFormGroup">
+                <form [formGroup]="firstFormGroup" class="pt-8 pb-4">
+                    <ng-template matStepLabel>Personal Profile</ng-template>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                        <!-- Age -->
+                        <div class="flex flex-col group">
+                            <label class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 group-focus-within:text-blue-600 dark:group-focus-within:text-blue-400 transition-colors">Age <span class="text-pink-500">*</span></label>
+                            <input type="number" formControlName="age" placeholder="Ex. 30"
+                                   class="w-full px-5 py-4 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300 outline-none text-slate-700 dark:text-slate-200 shadow-sm hover:border-slate-200 dark:hover:border-slate-600">
+                        </div>
+
+                        <!-- Gender -->
+                        <div class="flex flex-col group">
+                            <label class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 group-focus-within:text-blue-600 dark:group-focus-within:text-blue-400 transition-colors">Gender <span class="text-pink-500">*</span></label>
+                            <div class="relative">
+                                <select formControlName="gender" class="appearance-none w-full px-5 py-4 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300 outline-none text-slate-700 dark:text-slate-200 shadow-sm cursor-pointer hover:border-slate-200 dark:hover:border-slate-600">
+                                    <option value="" disabled selected>Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-5 text-slate-400 dark:text-slate-500">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Marital Status -->
+                        <div class="flex flex-col group">
+                            <label class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 group-focus-within:text-blue-600 dark:group-focus-within:text-blue-400 transition-colors">Marital Status <span class="text-pink-500">*</span></label>
+                            <div class="relative">
+                                <select formControlName="maritalStatus" class="appearance-none w-full px-5 py-4 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300 outline-none text-slate-700 dark:text-slate-200 shadow-sm cursor-pointer hover:border-slate-200 dark:hover:border-slate-600">
+                                    <option value="" disabled selected>Select Status</option>
+                                    <option value="Single">Single</option>
+                                    <option value="Married">Married</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-5 text-slate-400 dark:text-slate-500">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dependents -->
+                        <div class="flex flex-col group">
+                            <label class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 group-focus-within:text-blue-600 dark:group-focus-within:text-blue-400 transition-colors">Dependents <span class="text-pink-500">*</span></label>
+                            <div class="relative">
+                                <select formControlName="dependents" class="appearance-none w-full px-5 py-4 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300 outline-none text-slate-700 dark:text-slate-200 shadow-sm cursor-pointer hover:border-slate-200 dark:hover:border-slate-600">
+                                    <option value="" disabled selected>Number of dependents</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3+">3+</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-5 text-slate-400 dark:text-slate-500">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Education -->
+                        <div class="flex flex-col group">
+                            <label class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 group-focus-within:text-blue-600 dark:group-focus-within:text-blue-400 transition-colors">Education <span class="text-pink-500">*</span></label>
+                            <div class="relative">
+                                <select formControlName="education" class="appearance-none w-full px-5 py-4 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300 outline-none text-slate-700 dark:text-slate-200 shadow-sm cursor-pointer hover:border-slate-200 dark:hover:border-slate-600">
+                                    <option value="" disabled selected>Select Education</option>
+                                    <option value="Graduate">Graduate</option>
+                                    <option value="Not Graduate">Not Graduate</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-5 text-slate-400 dark:text-slate-500">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Area -->
+                        <div class="flex flex-col group">
+                            <label class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 group-focus-within:text-blue-600 dark:group-focus-within:text-blue-400 transition-colors">Residential Area <span class="text-pink-500">*</span></label>
+                            <div class="relative">
+                                <select formControlName="area" class="appearance-none w-full px-5 py-4 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300 outline-none text-slate-700 dark:text-slate-200 shadow-sm cursor-pointer hover:border-slate-200 dark:hover:border-slate-600">
+                                    <option value="" disabled selected>Select Area</option>
+                                    <option value="Urban">Urban</option>
+                                    <option value="Semiurban">Semiurban</option>
+                                    <option value="Rural">Rural</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-5 text-slate-400 dark:text-slate-500">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end mt-10">
+                        <button type="button" matStepperNext [disabled]="firstFormGroup.invalid" class="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-500 dark:to-indigo-500 text-white font-bold rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 hover:from-blue-500 hover:to-indigo-500 transition-all duration-300 inline-flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
+                            Next Step <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <!-- Step 2: Employment -->
+            <mat-step [stepControl]="secondFormGroup">
+                <form [formGroup]="secondFormGroup" class="pt-8 pb-4">
+                    <ng-template matStepLabel>Income & Career</ng-template>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                        
+                        <!-- Self Employed UI -->
+                        <div class="col-span-1 md:col-span-2 flex flex-col group">
+                            <label class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-3 group-focus-within:text-blue-600 dark:group-focus-within:text-blue-400 transition-colors">Are you Self Employed? <span class="text-pink-500">*</span></label>
+                            <div class="flex gap-4">
+                                <label class="relative flex items-center cursor-pointer p-4 rounded-2xl border-2 border-slate-100 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all w-full md:w-auto min-w-[160px] justify-center overflow-hidden"
+                                       [class.!border-blue-500]="secondFormGroup.get('selfEmployed')?.value === 'Yes'"
+                                       [class.!bg-blue-50]="secondFormGroup.get('selfEmployed')?.value === 'Yes'"
+                                       [class.dark:!bg-blue-900/30]="secondFormGroup.get('selfEmployed')?.value === 'Yes'">
+                                    <div class="absolute inset-0 bg-blue-500/10 dark:bg-blue-500/20 opacity-0 transition-opacity" [class.opacity-100]="secondFormGroup.get('selfEmployed')?.value === 'Yes'"></div>
+                                    <input type="radio" formControlName="selfEmployed" value="Yes" class="hidden">
+                                    <div class="w-5 h-5 rounded-full border-2 border-slate-300 dark:border-slate-600 mr-3 flex items-center justify-center transition-colors" [class.border-blue-600]="secondFormGroup.get('selfEmployed')?.value === 'Yes'" [class.dark:border-blue-400]="secondFormGroup.get('selfEmployed')?.value === 'Yes'">
+                                        <div class="w-2.5 h-2.5 rounded-full bg-blue-600 dark:bg-blue-400 scale-0 transition-transform" [class.scale-100]="secondFormGroup.get('selfEmployed')?.value === 'Yes'"></div>
+                                    </div>
+                                    <span class="font-bold text-slate-700 dark:text-slate-300 z-10" [class.text-blue-700]="secondFormGroup.get('selfEmployed')?.value === 'Yes'" [class.dark:text-blue-300]="secondFormGroup.get('selfEmployed')?.value === 'Yes'">Yes, I am</span>
+                                </label>
+
+                                <label class="relative flex items-center cursor-pointer p-4 rounded-2xl border-2 border-slate-100 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all w-full md:w-auto min-w-[160px] justify-center overflow-hidden"
+                                       [class.!border-blue-500]="secondFormGroup.get('selfEmployed')?.value === 'No'"
+                                       [class.!bg-blue-50]="secondFormGroup.get('selfEmployed')?.value === 'No'"
+                                       [class.dark:!bg-blue-900/30]="secondFormGroup.get('selfEmployed')?.value === 'No'">
+                                    <div class="absolute inset-0 bg-blue-500/10 dark:bg-blue-500/20 opacity-0 transition-opacity" [class.opacity-100]="secondFormGroup.get('selfEmployed')?.value === 'No'"></div>
+                                    <input type="radio" formControlName="selfEmployed" value="No" class="hidden">
+                                    <div class="w-5 h-5 rounded-full border-2 border-slate-300 dark:border-slate-600 mr-3 flex items-center justify-center transition-colors" [class.border-blue-600]="secondFormGroup.get('selfEmployed')?.value === 'No'" [class.dark:border-blue-400]="secondFormGroup.get('selfEmployed')?.value === 'No'">
+                                        <div class="w-2.5 h-2.5 rounded-full bg-blue-600 dark:bg-blue-400 scale-0 transition-transform" [class.scale-100]="secondFormGroup.get('selfEmployed')?.value === 'No'"></div>
+                                    </div>
+                                    <span class="font-bold text-slate-700 dark:text-slate-300 z-10" [class.text-blue-700]="secondFormGroup.get('selfEmployed')?.value === 'No'" [class.dark:text-blue-300]="secondFormGroup.get('selfEmployed')?.value === 'No'">No, Salaried</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Work Experience -->
+                        <div class="flex flex-col group">
+                            <label class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 group-focus-within:text-blue-600 dark:group-focus-within:text-blue-400 transition-colors">Work Experience (Years) <span class="text-pink-500">*</span></label>
+                            <input type="number" formControlName="experience" placeholder="Ex. 5"
+                                   class="w-full px-5 py-4 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300 outline-none text-slate-700 dark:text-slate-200 shadow-sm hover:border-slate-200 dark:hover:border-slate-600">
+                        </div>
+
+                        <!-- Salary Mode -->
+                        <div class="flex flex-col group">
+                            <label class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 group-focus-within:text-blue-600 dark:group-focus-within:text-blue-400 transition-colors">Salary Payment Mode <span class="text-pink-500">*</span></label>
+                            <div class="relative">
+                                <select formControlName="salaryMode" class="appearance-none w-full px-5 py-4 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300 outline-none text-slate-700 dark:text-slate-200 shadow-sm cursor-pointer hover:border-slate-200 dark:hover:border-slate-600">
+                                    <option value="" disabled selected>Select Mode</option>
+                                    <option value="Bank Transfer">Bank Transfer</option>
+                                    <option value="Cheque">Cheque</option>
+                                    <option value="Cash">Cash</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-5 text-slate-400 dark:text-slate-500">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Applicant Income -->
+                        <div class="flex flex-col group relative">
+                            <label class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 group-focus-within:text-blue-600 dark:group-focus-within:text-blue-400 transition-colors">Your Monthly Income (₹) <span class="text-pink-500">*</span></label>
+                            <div class="relative flex items-center">
+                                <span class="absolute left-5 text-slate-400 dark:text-slate-500 font-bold">₹</span>
+                                <input type="number" formControlName="applicantIncome" placeholder="50000"
+                                       class="w-full pl-10 pr-5 py-4 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300 outline-none text-slate-700 dark:text-slate-200 shadow-sm hover:border-slate-200 dark:hover:border-slate-600">
+                            </div>
+                        </div>
+
+                        <!-- Co-Applicant Income -->
+                        <div class="flex flex-col group relative">
+                            <label class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 group-focus-within:text-blue-600 dark:group-focus-within:text-blue-400 transition-colors">Co-Applicant Income (₹)</label>
+                            <div class="relative flex items-center">
+                                <span class="absolute left-5 text-slate-400 dark:text-slate-500 font-bold">₹</span>
+                                <input type="number" formControlName="coApplicantIncome" placeholder="0"
+                                       class="w-full pl-10 pr-5 py-4 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300 outline-none text-slate-700 dark:text-slate-200 shadow-sm hover:border-slate-200 dark:hover:border-slate-600">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between mt-10">
+                        <button type="button" matStepperPrevious class="px-8 py-4 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold rounded-full border-2 border-slate-200 dark:border-slate-600 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white hover:-translate-y-1 transition-all duration-300">
+                            Back
+                        </button>
+                        <button type="button" matStepperNext [disabled]="secondFormGroup.invalid" class="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-500 dark:to-indigo-500 text-white font-bold rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 hover:from-blue-500 hover:to-indigo-500 transition-all duration-300 inline-flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
+                            Next Step <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <!-- Step 3: Loan Details -->
+            <mat-step [stepControl]="thirdFormGroup">
+                <form [formGroup]="thirdFormGroup" class="pt-8 pb-4">
+                    <ng-template matStepLabel>Loan Configuration</ng-template>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                        
+                        <!-- Existing EMI -->
+                        <div class="flex flex-col group">
+                            <label class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 group-focus-within:text-blue-600 dark:group-focus-within:text-blue-400 transition-colors">Existing EMI (₹)</label>
+                            <div class="relative flex items-center">
+                                <span class="absolute left-5 text-slate-400 dark:text-slate-500 font-bold">₹</span>
+                                <input type="number" formControlName="existingEmi" placeholder="0"
+                                       class="w-full pl-10 pr-5 py-4 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300 outline-none text-slate-700 dark:text-slate-200 shadow-sm hover:border-slate-200 dark:hover:border-slate-600">
+                            </div>
+                        </div>
+
+                        <!-- Loan Purpose -->
+                        <div class="flex flex-col group">
+                            <label class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 group-focus-within:text-blue-600 dark:group-focus-within:text-blue-400 transition-colors">Loan Purpose <span class="text-pink-500">*</span></label>
+                            <div class="relative">
+                                <select formControlName="loanPurpose" class="appearance-none w-full px-5 py-4 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300 outline-none text-slate-700 dark:text-slate-200 shadow-sm cursor-pointer hover:border-slate-200 dark:hover:border-slate-600">
+                                    <option value="" disabled selected>Why do you need the loan?</option>
+                                    <option value="Medical">Medical Emergency</option>
+                                    <option value="Wedding">Wedding</option>
+                                    <option value="Education">Education</option>
+                                    <option value="Home Renovation">Home Renovation</option>
+                                    <option value="Asset Purchase">Asset Purchase</option>
+                                    <option value="Other">Other Category</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-5 text-slate-400 dark:text-slate-500">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                </div>
+                            </div>
+                        </div>
+
+                         <!-- Residential Assets -->
+                         <div class="flex flex-col group">
+                            <label class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 group-focus-within:text-blue-600 dark:group-focus-within:text-blue-400 transition-colors">Owned Assets <span class="text-pink-500">*</span></label>
+                            <div class="relative">
+                                <select formControlName="assets" class="appearance-none w-full px-5 py-4 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300 outline-none text-slate-700 dark:text-slate-200 shadow-sm cursor-pointer hover:border-slate-200 dark:hover:border-slate-600">
+                                    <option value="" disabled selected>Select Property Status</option>
+                                    <option value="None">No Owned House</option>
+                                    <option value="Own House">Own House/Flat</option>
+                                    <option value="House + Land">House and Additional Land</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-5 text-slate-400 dark:text-slate-500">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                </div>
+                            </div>
+                        </div>
+
+                         <!-- Loan Amount -->
+                         <div class="flex flex-col group relative">
+                            <label class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 group-focus-within:text-blue-600 dark:group-focus-within:text-blue-400 transition-colors">Required Amount (₹) <span class="text-pink-500">*</span></label>
+                            <div class="relative flex items-center">
+                                <span class="absolute left-5 text-slate-400 dark:text-slate-500 font-bold">₹</span>
+                                <input type="number" formControlName="loanAmount" placeholder="100000"
+                                       class="w-full pl-10 pr-5 py-4 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300 outline-none text-slate-700 dark:text-slate-200 shadow-sm hover:border-slate-200 dark:hover:border-slate-600 text-xl font-bold">
+                            </div>
+                        </div>
+
+                        <!-- Loan Tenure -->
+                        <div class="flex flex-col group">
+                            <label class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 group-focus-within:text-blue-600 dark:group-focus-within:text-blue-400 transition-colors">Desired Tenure <span class="text-pink-500">*</span></label>
+                            <div class="relative">
+                                <select formControlName="tenure" class="appearance-none w-full px-5 py-4 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300 outline-none text-slate-700 dark:text-slate-200 shadow-sm cursor-pointer hover:border-slate-200 dark:hover:border-slate-600">
+                                    <option value="" disabled selected>Select Months</option>
+                                    <option value="12">12 Months (1 Year)</option>
+                                    <option value="24">24 Months (2 Years)</option>
+                                    <option value="36">36 Months (3 Years)</option>
+                                    <option value="60">60 Months (5 Years)</option>
+                                    <option value="84">84 Months (7 Years)</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-5 text-slate-400 dark:text-slate-500">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col-reverse md:flex-row justify-between items-center mt-12 gap-6">
+                        <button type="button" matStepperPrevious class="w-full md:w-auto px-8 py-4 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold rounded-full border-2 border-slate-200 dark:border-slate-600 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white hover:-translate-y-1 transition-all duration-300 text-center">
+                            Go Back
+                        </button>
+                        
+                        <button type="submit" (click)="submit()" [disabled]="thirdFormGroup.invalid || isSubmitting" 
+                                class="w-full md:w-auto px-10 py-4 bg-gradient-to-r from-teal-500 to-emerald-500 dark:from-teal-600 dark:to-emerald-600 text-white font-extrabold rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 hover:from-teal-400 hover:to-emerald-400 transition-all duration-300 inline-flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none text-lg">
+                            
+                            <svg *ngIf="isSubmitting" class="animate-spin -ml-1 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            <svg *ngIf="!isSubmitting" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            
+                            <span *ngIf="!isSubmitting">Analyze Eligibility</span>
+                            <span *ngIf="isSubmitting">Evaluating...</span>
+                        </button>
+                    </div>
+                </form>
+            </mat-step>
+        </mat-stepper>
+    </div>
+</div>

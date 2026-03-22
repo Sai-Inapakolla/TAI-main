@@ -1,0 +1,14 @@
+{
+  "name": "tai-backend",
+  "version": "1.0.0",
+  "description": "Backend API for TAI",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "mongodb": "^7.1.0"
+  }
+}

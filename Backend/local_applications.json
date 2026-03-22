@@ -1,0 +1,147 @@
+[
+    {
+        "input": {
+            "age": 25,
+            "gender": "Female",
+            "maritalStatus": "Married",
+            "dependents": "1",
+            "education": "Graduate",
+            "area": "Semiurban",
+            "selfEmployed": "Yes",
+            "experience": 27,
+            "applicantIncome": 50000,
+            "coApplicantIncome": 12321,
+            "salaryMode": "Bank Transfer",
+            "existingEmi": 1111,
+            "assets": "Own House",
+            "loanPurpose": "Home Renovation",
+            "loanAmount": 111111,
+            "tenure": "24"
+        },
+        "prediction": {
+            "approved": true,
+            "bank": "6",
+            "bank_list": [
+                {
+                    "name": "6",
+                    "probability": 96.5,
+                    "risk": "Low"
+                },
+                {
+                    "name": "7",
+                    "probability": 71.9,
+                    "risk": "Low"
+                },
+                {
+                    "name": "4",
+                    "probability": 70.2,
+                    "risk": "Low"
+                },
+                {
+                    "name": "8",
+                    "probability": 54.3,
+                    "risk": "Low"
+                },
+                {
+                    "name": "5",
+                    "probability": 52.4,
+                    "risk": "Low"
+                }
+            ],
+            "probability": 92.23999786376953,
+            "status": "Approved"
+        },
+        "status": "predicted",
+        "selected_bank": null,
+        "timestamp": "2026-03-22T05:25:59.638Z",
+        "_id": "377cb8f6-fcc6-4955-9bb8-44235793f80c"
+    },
+    {
+        "input": {
+            "age": 18,
+            "gender": "Male",
+            "maritalStatus": "Married",
+            "dependents": "0",
+            "education": "Graduate",
+            "area": "Semiurban",
+            "selfEmployed": "Yes",
+            "experience": 2,
+            "applicantIncome": 232332,
+            "coApplicantIncome": 2323123,
+            "salaryMode": "Bank Transfer",
+            "existingEmi": 121212,
+            "assets": "None",
+            "loanPurpose": "Home Renovation",
+            "loanAmount": 123211,
+            "tenure": "12"
+        },
+        "prediction": {
+            "approved": false,
+            "bank": "N/A",
+            "bank_list": [],
+            "probability": 41.08000183105469,
+            "status": "Rejected"
+        },
+        "status": "predicted",
+        "selected_bank": null,
+        "timestamp": "2026-03-22T05:30:45.799Z",
+        "_id": "2e70ebe6-0f88-4384-841f-cc37cfe6b99b"
+    },
+    {
+        "input": {
+            "age": 23,
+            "gender": "Male",
+            "maritalStatus": "Married",
+            "dependents": "2",
+            "education": "Graduate",
+            "area": "Urban",
+            "selfEmployed": "Yes",
+            "experience": 12,
+            "applicantIncome": 123123,
+            "coApplicantIncome": 1231212,
+            "salaryMode": "Bank Transfer",
+            "existingEmi": 12312,
+            "assets": "None",
+            "loanPurpose": "Wedding",
+            "loanAmount": 12343,
+            "tenure": "24"
+        },
+        "prediction": {
+            "approved": true,
+            "bank": "Bank of India",
+            "bank_list": [
+                {
+                    "name": "Bank of India",
+                    "probability": 96.5,
+                    "risk": "Low"
+                },
+                {
+                    "name": "IDFC FIRST Bank",
+                    "probability": 90.6,
+                    "risk": "Low"
+                },
+                {
+                    "name": "State Bank of India (SBI)",
+                    "probability": 54.4,
+                    "risk": "Low"
+                },
+                {
+                    "name": "Axis Bank",
+                    "probability": 43.2,
+                    "risk": "Low"
+                },
+                {
+                    "name": "YES Bank",
+                    "probability": 27.1,
+                    "risk": "Low"
+                }
+            ],
+            "probability": 98.02999877929688,
+            "status": "Approved"
+        },
+        "status": "predicted",
+        "selected_bank": null,
+        "timestamp": "2026-03-22T05:38:22.536Z",
+        "_id": "2cc29117-f2ce-48d2-911d-e58b18b3a20a"
+    }
+]

@@ -1,0 +1,69 @@
+// Custom Stepper Styling to match new Tailwind aesthetic
+::ng-deep .mat-step-header {
+    background: transparent !important;
+    border-radius: 12px;
+    margin: 0 4px;
+    padding: 1rem !important;
+
+    .mat-step-icon {
+        background-color: #f1f5f9; // slate-100
+        color: #94a3b8; // slate-400
+        font-weight: 700;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        height: 32px;
+        width: 32px;
+
+        &.mat-step-icon-selected,
+        &.mat-step-icon-state-edit {
+            background: linear-gradient(135deg, #2563eb, #0ea5e9); // vibrant blue gradient
+            color: white;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4); 
+            transform: scale(1.15);
+        }
+    }
+
+    .mat-step-label {
+        color: #94a3b8;
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        margin-left: 8px;
+
+        &.mat-step-label-active {
+            color: #1e293b;
+            font-weight: 800;
+            text-shadow: 0 0 1px rgba(30, 41, 59, 0.1);
+        }
+    }
+
+    &:hover {
+        background-color: rgba(241, 245, 249, 0.5) !important;
+    }
+}
+
+// Ensure stepper lines match the look
+::ng-deep .mat-stepper-horizontal {
+    background: transparent !important;
+}
+
+::ng-deep .mat-stepper-horizontal-line {
+    border-top-color: #e2e8f0 !important; // slate-200
+    border-top-width: 2px !important;
+    margin: 0 -10px !important;
+    transition: all 0.3s ease;
+}
+
+// Remove default outline from anything we focus manually
+input:focus, select:focus, button:focus {
+    outline: none;
+}
+
+// Improve autofill background styling on inputs
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    -webkit-text-fill-color: #334155 !important; // slate-700
+    transition: background-color 5000s ease-in-out 0s;
+}

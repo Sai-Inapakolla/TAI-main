@@ -1,0 +1,44 @@
+<div class="min-h-screen relative p-4 flex justify-center items-center overflow-hidden bg-slate-50 dark:bg-slate-900 transition-colors duration-500">
+    <!-- Animated background decorators -->
+    <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <div class="absolute top-[20%] left-[60%] w-[500px] h-[500px] bg-blue-200 dark:bg-blue-900/30 rounded-full mix-blend-multiply filter blur-[100px] opacity-40 animate-pulse"></div>
+        <div class="absolute bottom-[20%] right-[60%] w-[600px] h-[600px] bg-indigo-200 dark:bg-indigo-900/30 rounded-full mix-blend-multiply filter blur-[120px] opacity-30 animate-pulse delay-700"></div>
+    </div>
+
+    <div class="glass-panel relative w-full max-w-md p-10 shadow-2xl bg-white/70 dark:bg-slate-800/70 backdrop-blur-2xl rounded-[2.5rem] z-10 border border-white/60 dark:border-white/10 transition-colors duration-500 text-center animate-fade-in-up">
+        
+        <div class="inline-flex items-center justify-center w-20 h-20 bg-blue-50 dark:bg-blue-500/10 rounded-[2rem] mb-6 text-blue-600 dark:text-blue-400 shadow-inner">
+            <mat-icon class="scale-[2]">admin_panel_settings</mat-icon>
+        </div>
+        
+        <h1 class="text-3xl font-extrabold text-slate-800 dark:text-white mb-2">Officer Portal</h1>
+        <p class="text-slate-500 dark:text-slate-400 font-medium mb-8">Secure access for bank officials</p>
+        
+        <form class="flex flex-col gap-5 text-left" (submit)="login()">
+            <div class="flex flex-col group relative">
+                <label class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 group-focus-within:text-blue-600 dark:group-focus-within:text-blue-400 transition-colors">Officer Name</label>
+                <div class="relative flex items-center">
+                    <span class="absolute left-5 text-slate-400 dark:text-slate-500"><mat-icon>badge</mat-icon></span>
+                    <input [(ngModel)]="name" name="name" required type="text" placeholder="Enter officer name"
+                           class="w-full pl-14 pr-5 py-4 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300 outline-none text-slate-700 dark:text-slate-200 shadow-sm placeholder-slate-400 dark:placeholder-slate-500">
+                </div>
+            </div>
+
+            <div class="flex flex-col group relative">
+                <label class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 group-focus-within:text-blue-600 dark:group-focus-within:text-blue-400 transition-colors">Session ID</label>
+                <div class="relative flex items-center">
+                    <span class="absolute left-5 text-slate-400 dark:text-slate-500"><mat-icon>vpn_key</mat-icon></span>
+                    <input [(ngModel)]="sessionId" name="sessionId" required type="password" placeholder="Enter session ID"
+                           class="w-full pl-14 pr-5 py-4 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300 outline-none text-slate-700 dark:text-slate-200 shadow-sm tracking-widest placeholder-slate-400 dark:placeholder-slate-500">
+                </div>
+            </div>
+
+            <button type="submit" class="mt-4 px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-700 dark:to-indigo-700 text-white font-bold rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 hover:from-blue-500 hover:to-indigo-500 transition-all duration-300">
+                Login to Dashboard
+            </button>
+            <div class="text-center mt-4">
+                <a routerLink="/" class="text-sm font-bold text-slate-400 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">← Back to Home</a>
+            </div>
+        </form>
+    </div>
+</div>

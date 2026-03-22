@@ -1,0 +1,43 @@
+.feature-card-item {
+    border: 2px solid #3b82f6; // Bright Blue
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); // Glow effect
+    z-index: 1;
+
+    // Glowing connection line between cards
+    @media (min-width: 768px) {
+        &:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            // The gap is 1.5rem (24px). We want the line to span from right edge to next left edge.
+            right: -1.5rem;
+            width: 1.5rem;
+            height: 6px;
+            background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%);
+            transform: translateY(-50%);
+            z-index: 10;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.8);
+            border-radius: 4px;
+        }
+
+        // Glowing Arrow Head pointing right
+        &:not(:last-child)::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            // Position arrow touching the start of the next card? 
+            // Gap is 1.5rem (24px).
+            // Line is -1.5rem right. width 1.5rem.
+            // Let's place arrow at -1.5rem (right edge of current card + gap) roughly.
+            right: -1.7rem;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 14px solid #3b82f6; // Arrow pointing right
+            transform: translateY(-50%);
+            z-index: 11;
+            filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.8)); // Glowing effect
+        }
+    }
+}
