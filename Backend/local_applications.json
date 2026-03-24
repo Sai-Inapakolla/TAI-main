@@ -143,5 +143,285 @@
         "selected_bank": null,
         "timestamp": "2026-03-22T05:38:22.536Z",
         "_id": "2cc29117-f2ce-48d2-911d-e58b18b3a20a"
+    },
+    {
+        "input": {
+            "age": 30,
+            "gender": "Female",
+            "maritalStatus": "Single",
+            "dependents": "0",
+            "education": "Graduate",
+            "area": "Semiurban",
+            "selfEmployed": "Yes",
+            "experience": 23,
+            "applicantIncome": 5000000,
+            "coApplicantIncome": 500000,
+            "salaryMode": "Bank Transfer",
+            "existingEmi": 1234,
+            "assets": "None",
+            "loanPurpose": "Home Renovation",
+            "loanAmount": 1234,
+            "tenure": "12"
+        },
+        "prediction": {
+            "approved": true,
+            "bank": "Bank of India",
+            "bank_list": [
+                {
+                    "name": "Bank of India",
+                    "probability": 96.5,
+                    "risk": "Low"
+                },
+                {
+                    "name": "Axis Bank",
+                    "probability": 86.1,
+                    "risk": "Low"
+                },
+                {
+                    "name": "State Bank of India (SBI)",
+                    "probability": 54,
+                    "risk": "Low"
+                },
+                {
+                    "name": "IDFC FIRST Bank",
+                    "probability": 18.4,
+                    "risk": "Low"
+                },
+                {
+                    "name": "Kotak Mahindra Bank",
+                    "probability": 14.9,
+                    "risk": "Low"
+                }
+            ],
+            "probability": 95.69000244140625,
+            "status": "Approved"
+        },
+        "status": "predicted",
+        "selected_bank": null,
+        "timestamp": "2026-03-23T04:12:24.635Z",
+        "_id": "2c9842e4-283b-4767-a5c3-2690808013ff"
+    },
+    {
+        "input": {
+            "age": 30,
+            "gender": "Male",
+            "maritalStatus": "Single",
+            "dependents": "2",
+            "education": "Graduate",
+            "area": "Semiurban",
+            "selfEmployed": "Yes",
+            "experience": 8,
+            "applicantIncome": 1000000,
+            "coApplicantIncome": 10000000,
+            "salaryMode": "Bank Transfer",
+            "existingEmi": 0,
+            "assets": "Own House",
+            "loanPurpose": "Education",
+            "loanAmount": 100000,
+            "tenure": "24"
+        },
+        "prediction": {
+            "approved": true,
+            "bank": "Bank of India",
+            "bank_list": [
+                {
+                    "name": "Bank of India",
+                    "probability": 96.5,
+                    "risk": "Low"
+                },
+                {
+                    "name": "IDFC FIRST Bank",
+                    "probability": 7.5,
+                    "risk": "Low"
+                },
+                {
+                    "name": "State Bank of India (SBI)",
+                    "probability": 3,
+                    "risk": "Low"
+                },
+                {
+                    "name": "HDFC Bank",
+                    "probability": 2.3,
+                    "risk": "Low"
+                },
+                {
+                    "name": "YES Bank",
+                    "probability": 2.3,
+                    "risk": "Low"
+                }
+            ],
+            "probability": 97.75,
+            "status": "Approved"
+        },
+        "status": "submitted",
+        "selected_bank": null,
+        "timestamp": "2026-03-24T07:52:38.362Z",
+        "_id": "fa223121-6165-46c3-b3f0-16c489d1cdd9",
+        "applicant": {
+            "name": "SAI INAPAKOLLA",
+            "aadhar_number": "765487548766",
+            "pan_number": "6hgfdfgh",
+            "mobile": "8765456677",
+            "email": "user@gmail.com",
+            "date_of_birth": "2000-01-01",
+            "gender": "Male",
+            "marital_status": "Single",
+            "education": "10th Pass",
+            "employment_type": "Self Employed",
+            "civil_score": "7654",
+            "monthly_income": "5000000",
+            "address": "jhgcv",
+            "city": "jhgcv",
+            "state": "hgfxch",
+            "pincode": "765456"
+        },
+        "documents": {
+            "aadhar_pdf": "1774339028614-6468fd6e-Sai_Inapakolla_SDE_Resume (3).pdf",
+            "pan_pdf": "1774339028619-5e5342b4-Sai_Inapakolla_SDE_Resume (2).pdf",
+            "photo": "1774339028619-50b56e0b-â â¦ GOJO SATORU.jpg",
+            "signature": "1774339028624-faa6fa93-WhatsApp Image 2026-03-12 at 3.47.04 PM.jpeg"
+        },
+        "submitted_at": "2026-03-24T07:57:08.634Z"
+    },
+    {
+        "input": {
+            "age": 30,
+            "gender": "Male",
+            "maritalStatus": "Single",
+            "dependents": "0",
+            "education": "Graduate",
+            "area": "Urban",
+            "selfEmployed": "No",
+            "experience": 8,
+            "applicantIncome": 20000,
+            "coApplicantIncome": 300000,
+            "salaryMode": "Bank Transfer",
+            "existingEmi": 0,
+            "assets": "House + Land",
+            "loanPurpose": "Education",
+            "loanAmount": 100000,
+            "tenure": "24"
+        },
+        "prediction": {
+            "approved": false,
+            "bank": "N/A",
+            "bank_list": [],
+            "probability": 0.8700000047683716,
+            "status": "Rejected"
+        },
+        "status": "predicted",
+        "selected_bank": null,
+        "timestamp": "2026-03-24T08:03:59.040Z",
+        "_id": "56f9771b-10bf-43be-b5da-4f742323806b"
+    },
+    {
+        "input": {
+            "age": 30,
+            "gender": "Male",
+            "maritalStatus": "Single",
+            "dependents": "0",
+            "education": "Graduate",
+            "area": "Urban",
+            "selfEmployed": "No",
+            "experience": 8,
+            "applicantIncome": 5500000,
+            "coApplicantIncome": 500000,
+            "salaryMode": "Bank Transfer",
+            "existingEmi": 0,
+            "assets": "Own House",
+            "loanPurpose": "Education",
+            "loanAmount": 100000,
+            "tenure": "12"
+        },
+        "prediction": {
+            "approved": true,
+            "bank": "Bank of India",
+            "bank_list": [
+                {
+                    "name": "Bank of India",
+                    "probability": 96.5,
+                    "risk": "Low"
+                },
+                {
+                    "name": "IDFC FIRST Bank",
+                    "probability": 5.4,
+                    "risk": "Low"
+                },
+                {
+                    "name": "State Bank of India (SBI)",
+                    "probability": 2.5,
+                    "risk": "Low"
+                },
+                {
+                    "name": "YES Bank",
+                    "probability": 2.3,
+                    "risk": "Low"
+                },
+                {
+                    "name": "HDFC Bank",
+                    "probability": 2.2,
+                    "risk": "Low"
+                }
+            ],
+            "probability": 96.45999908447266,
+            "status": "Approved"
+        },
+        "status": "submitted",
+        "selected_bank": null,
+        "timestamp": "2026-03-24T08:07:02.003Z",
+        "_id": "815fcbd2-8e8b-4ec7-9433-9892ecf2695a",
+        "applicant": {
+            "name": "SAI INAPAKOLLA",
+            "aadhar_number": "876543456723",
+            "pan_number": "AKsjdhfg08",
+            "mobile": "9876543345",
+            "email": "user@example.com",
+            "date_of_birth": "2000-10-10",
+            "gender": "Male",
+            "marital_status": "Single",
+            "education": "Post Graduate",
+            "employment_type": "Self Employed",
+            "civil_score": "800",
+            "monthly_income": "5500000",
+            "address": "Hii",
+            "city": "Hjsdv",
+            "state": "ajhsgd",
+            "pincode": "234522"
+        },
+        "documents": {
+            "aadhar_pdf": "1774339714362-83ad1f7a-Sai_Inapakolla_SDE_Resume (1).pdf",
+            "pan_pdf": "1774339714362-683e5671-Sai_Inapakolla_SDE_Resume (1).pdf"
+        },
+        "submitted_at": "2026-03-24T08:08:34.366Z"
+    },
+    {
+        "application_id": null,
+        "selected_bank": null,
+        "applicant": {
+            "name": "Test Data",
+            "aadhar_number": "Test Data",
+            "pan_number": "Test Data",
+            "mobile": "9876543210",
+            "email": "john.doe@example.com",
+            "date_of_birth": "1990-01-01",
+            "gender": "Male",
+            "marital_status": "Single",
+            "education": "Below 10th",
+            "employment_type": "Salaried",
+            "civil_score": "750",
+            "monthly_income": "50000",
+            "address": "123 Test Street, Some Area",
+            "city": "Mumbai",
+            "state": "Maharashtra",
+            "pincode": "400001"
+        },
+        "documents": {
+            "aadhar_pdf": "1774339872266-a4dc6ed6-dummy.pdf",
+            "pan_pdf": "1774339872269-26189c5f-pan.pdf"
+        },
+        "status": "submitted",
+        "submitted_at": "2026-03-24T08:11:12.273Z",
+        "timestamp": "2026-03-24T08:11:12.273Z",
+        "_id": "1338a1a8-6f92-4caf-8732-9956b5a960cf"
     }
 ]

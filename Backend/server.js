@@ -4,6 +4,20 @@ const { MongoClient, ObjectId } = require('mongodb');
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const multer = require('multer');
+
+// Multer storage config for KYC document uploads
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, uploadsDir),
+  filename: (req, file, cb) => {
+    const uniqueName = `${Date.now()}-${crypto.randomUUID().slice(0, 8)}-${file.originalname}`;
+    cb(null, uniqueName);
+  }
+});
+const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 } }); // 10MB limit
 
 const app = express();
 app.use(cors());
@@ -409,6 +423,83 @@ app.post('/officer_predict', async (req, res) => {
   } catch (err) {
     console.error("Error calling ML service:", err.message);
     res.status(500).json({ error: 'ML service is unreachable.' });
+  }
+});
+
+// Serve uploaded files statically
+app.use('/uploads', express.static(uploadsDir));
+
+// ----------------------------------------
+// Bank Application Form - Full KYC Submission with Document Uploads
+// ----------------------------------------
+const kycUploadFields = upload.fields([
+  { name: 'aadhar_pdf', maxCount: 1 },
+  { name: 'pan_pdf', maxCount: 1 },
+  { name: 'photo', maxCount: 1 },
+  { name: 'signature', maxCount: 1 },
+  { name: 'income_proof', maxCount: 1 },
+  { name: 'address_proof', maxCount: 1 }
+]);
+
+app.post('/submit-application', kycUploadFields, async (req, res) => {
+  try {
+    const body = req.body;
+    const files = req.files || {};
+
+    // Build file paths map
+    const filePaths = {};
+    for (const [key, fileArr] of Object.entries(files)) {
+      if (fileArr && fileArr.length > 0) {
+        filePaths[key] = fileArr[0].filename;
+      }
+    }
+
+    const applicationRecord = {
+      application_id: body.application_id || null,
+      selected_bank: body.selected_bank || null,
+      applicant: {
+        name: body.name || '',
+        aadhar_number: body.aadhar_number || '',
+        pan_number: body.pan_number || '',
+        mobile: body.mobile || '',
+        email: body.email || '',
+        date_of_birth: body.date_of_birth || '',
+        gender: body.gender || '',
+        marital_status: body.marital_status || '',
+        education: body.education || '',
+        employment_type: body.employment_type || '',
+        civil_score: body.civil_score || '',
+        monthly_income: body.monthly_income || '',
+        address: body.address || '',
+        city: body.city || '',
+        state: body.state || '',
+        pincode: body.pincode || ''
+      },
+      documents: filePaths,
+      status: 'submitted',
+      submitted_at: new Date().toISOString(),
+      timestamp: new Date().toISOString()
+    };
+
+    // If we have an existing application_id, update it
+    if (body.application_id) {
+      const updated = await dbUpdateApplication(body.application_id, {
+        applicant: applicationRecord.applicant,
+        documents: applicationRecord.documents,
+        status: 'submitted',
+        submitted_at: applicationRecord.submitted_at
+      });
+      if (updated) {
+        return res.json({ success: true, message: 'Application submitted successfully!', application_id: body.application_id });
+      }
+    }
+
+    // Otherwise insert as new record
+    const appId = await dbInsertApplication(applicationRecord);
+    res.json({ success: true, message: 'Application submitted successfully!', application_id: appId });
+  } catch (err) {
+    console.error('Error in /submit-application:', err);
+    res.status(500).json({ error: 'Failed to submit application: ' + String(err) });
   }
 });
 

@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { LandingComponent } from './features/landing/landing';
 import { UserEligibility } from './features/user/user-eligibility/user-eligibility';
 import { UserResult } from './features/user/user-result/user-result';
+import { UserApplication } from './features/user/user-application/user-application';
 import { OfficerLogin } from './features/officer/officer-login/officer-login';
 import { OfficerDashboard } from './features/officer/officer-dashboard/officer-dashboard';
 import { OfficerReview } from './features/officer/officer-review/officer-review';
@@ -12,6 +13,7 @@ export const routes: Routes = [
     { path: '', component: LandingComponent },
     { path: 'user/eligibility', component: UserEligibility },
     { path: 'user/result', component: UserResult },
+    { path: 'user/application', component: UserApplication },
 
     // Officer
     { path: 'officer/login', component: OfficerLogin },

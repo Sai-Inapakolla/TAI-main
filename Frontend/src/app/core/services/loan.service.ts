@@ -44,4 +44,8 @@ export class LoanService {
             status: status
         });
     }
+
+    submitApplication(formData: FormData): Observable<any> {
+        return this.http.post<any>('http://localhost:5000/submit-application', formData);
+    }
 }

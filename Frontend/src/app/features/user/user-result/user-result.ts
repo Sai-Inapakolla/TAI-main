@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -34,6 +35,7 @@ export class UserResult implements OnInit {
   selectedBank: any;
   applicationId: string | null = null;
   private _loanService = inject(LoanService);
+  private _router = inject(Router);
 
   // Dialog state
   showApplyDialog = false;
@@ -91,31 +93,11 @@ export class UserResult implements OnInit {
       return;
     }
 
-    // Show Dialog
-    this.showApplyDialog = true;
-  }
-
-  closeDialog() {
-    this.showApplyDialog = false;
-    this.applicantName = '';
-    this.applicantMobile = '';
-  }
-
-  confirmApply() {
-    if (!this.applicantName || !this.applicantMobile) {
-      alert('Please enter your Name and Mobile Number.');
-      return;
-    }
-
-    this._loanService.apply(this.applicationId!, this.selectedBank.name, this.applicantName, this.applicantMobile).subscribe({
-      next: (res) => {
-        alert(`Application Submitted Successfully to ${this.selectedBank.name}! Our officer will contact you shortly.`);
-        console.log(res);
-        this.closeDialog();
-      },
-      error: (err) => {
-        console.error(err);
-        alert('Application request failed. ensure backend is running.');
+    // Navigate to full application form
+    this._router.navigate(['/user/application'], {
+      state: {
+        application_id: this.applicationId,
+        selected_bank: this.selectedBank.name
       }
     });
   }
