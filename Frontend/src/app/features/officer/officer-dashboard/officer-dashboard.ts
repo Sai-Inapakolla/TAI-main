@@ -64,13 +64,23 @@ export class OfficerDashboard implements OnInit {
             }
           }
 
+          // Support both old (app.input) and new (app.applicant) data structures
+          const input = app.input || {};
+          const applicant = app.applicant || {};
+
           return {
             id: app._id,
-            name: app.input?.Name || app.input?.name || 'Applicant ' + app._id.substr(-4),
-            income: app.input?.ApplicantIncome || app.input?.applicantIncome || 0,
-            loanAmount: app.input?.LoanAmount || app.input?.loanAmount || 0,
+            name: applicant.name || input.Name || input.name || 'Applicant ' + app._id.substr(-4),
+            income: applicant.monthly_income || input.ApplicantIncome || input.applicantIncome || 0,
+            loanAmount: input.LoanAmount || input.loanAmount || 0,
             risk: risk,
-            status: app.status || 'Pending'
+            status: app.status || 'Pending',
+            // Extra fields from scanned applications
+            aadhar: applicant.aadhar_number || '',
+            pan: applicant.pan_number || '',
+            mobile: applicant.mobile || input.Mobile || input.mobile || '',
+            employer: applicant.employer || '',
+            documents: app.documents || {}
           };
         });
 

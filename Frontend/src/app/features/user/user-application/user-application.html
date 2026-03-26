@@ -5,216 +5,401 @@
         <div class="bg-white dark:bg-slate-800 rounded-3xl p-10 flex flex-col items-center shadow-2xl border dark:border-slate-700">
             <mat-spinner diameter="64" color="primary"></mat-spinner>
             <h2 class="text-xl font-bold mt-6 text-gray-700 dark:text-white">Submitting your application...</h2>
-            <p class="text-gray-500 dark:text-slate-400 mt-2 text-sm">Uploading documents securely</p>
+            <p class="text-gray-500 dark:text-slate-400 mt-2 text-sm">Saving securely to database</p>
         </div>
     </div>
 
-    <!-- Success State -->
-    <div *ngIf="submitted" class="flex items-center justify-center min-h-[80vh]">
-        <div class="app-card success-card text-center max-w-lg w-full p-10">
-            <div class="success-icon-ring mx-auto mb-6">
-                <mat-icon class="text-green-500 text-6xl">check_circle</mat-icon>
-            </div>
-            <h2 class="text-3xl font-extrabold text-gray-800 dark:text-white mb-3">Application Submitted!</h2>
-            <p class="text-gray-500 dark:text-slate-400 mb-2">Your loan application to <span class="font-bold text-blue-600 dark:text-blue-400">{{ selectedBank }}</span> has been submitted successfully.</p>
-            <p class="text-sm text-gray-400 dark:text-slate-500 mb-8">A bank officer will review your application and documents. You will be contacted shortly.</p>
-            <button mat-raised-button color="primary" class="px-8 py-2 text-lg rounded-xl" (click)="goHome()">
-                Back to Home
-            </button>
-        </div>
-    </div>
-
-    <!-- Application Form -->
-    <div *ngIf="!submitted" class="max-w-4xl mx-auto">
+    <div class="max-w-4xl mx-auto">
 
         <!-- Header -->
-        <div class="text-center mb-8 pt-6">
+        <div *ngIf="currentStep !== 4" class="text-center mb-8 pt-6">
             <div class="inline-flex items-center gap-2 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
                 <mat-icon class="text-lg">account_balance</mat-icon>
                 {{ selectedBank || 'Bank Application' }}
             </div>
-            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-800 dark:text-white mb-2">Complete Your Application</h1>
-            <p class="text-gray-500 dark:text-slate-400">Fill in your details and upload required documents to proceed.</p>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-800 dark:text-white mb-2">Smart Document KYC</h1>
+            <p class="text-gray-500 dark:text-slate-400">Upload your documents and let AI extract details automatically</p>
         </div>
 
-        <form (ngSubmit)="onSubmit()" class="space-y-6">
-
-            <!-- Section 1: Personal Information -->
-            <div class="app-card">
-                <div class="section-header">
-                    <mat-icon class="section-icon text-blue-500">person</mat-icon>
-                    <h2 class="section-title">Personal Information</h2>
+        <!-- ═══ Stepper Indicator ═══ -->
+        <div *ngIf="currentStep !== 4" class="flex items-center justify-center gap-0 mb-10">
+            <!-- Step 1 -->
+            <div class="flex items-center gap-2">
+                <div class="stepper-dot" [class.active]="currentStep >= 1" [class.done]="currentStep > 1">
+                    <mat-icon *ngIf="currentStep > 1" class="text-sm">check</mat-icon>
+                    <span *ngIf="currentStep <= 1">1</span>
                 </div>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label class="form-label">Full Name <span class="required">*</span></label>
-                        <input type="text" [(ngModel)]="form.name" name="name" required
-                            class="form-input" placeholder="Enter your full name">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Date of Birth <span class="required">*</span></label>
-                        <input type="date" [(ngModel)]="form.date_of_birth" name="dob" required
-                            class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Gender <span class="required">*</span></label>
-                        <select [(ngModel)]="form.gender" name="gender" required class="form-input">
-                            <option value="">Select Gender</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Marital Status</label>
-                        <select [(ngModel)]="form.marital_status" name="marital_status" class="form-input">
-                            <option value="">Select</option>
-                            <option value="Single">Single</option>
-                            <option value="Married">Married</option>
-                            <option value="Divorced">Divorced</option>
-                            <option value="Widowed">Widowed</option>
-                        </select>
-                    </div>
-                </div>
+                <span class="stepper-label" [class.active]="currentStep >= 1">Upload</span>
             </div>
-
-            <!-- Section 2: Identity & Contact -->
-            <div class="app-card">
-                <div class="section-header">
-                    <mat-icon class="section-icon text-indigo-500">badge</mat-icon>
-                    <h2 class="section-title">Identity & Contact Details</h2>
+            <div class="stepper-line" [class.active]="currentStep >= 2"></div>
+            <!-- Step 2 -->
+            <div class="flex items-center gap-2">
+                <div class="stepper-dot" [class.active]="currentStep >= 2" [class.done]="currentStep > 2">
+                    <mat-icon *ngIf="currentStep > 2" class="text-sm">check</mat-icon>
+                    <span *ngIf="currentStep <= 2">2</span>
                 </div>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label class="form-label">Aadhar Number <span class="required">*</span></label>
-                        <input type="text" [(ngModel)]="form.aadhar_number" name="aadhar" required
-                            class="form-input" placeholder="XXXX XXXX XXXX" maxlength="14">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">PAN Card Number <span class="required">*</span></label>
-                        <input type="text" [(ngModel)]="form.pan_number" name="pan" required
-                            class="form-input" placeholder="ABCDE1234F" maxlength="10" style="text-transform: uppercase;">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Mobile Number <span class="required">*</span></label>
-                        <input type="tel" [(ngModel)]="form.mobile" name="mobile" required
-                            class="form-input" placeholder="10-digit mobile number" maxlength="10">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Email Address</label>
-                        <input type="email" [(ngModel)]="form.email" name="email"
-                            class="form-input" placeholder="your@email.com">
-                    </div>
-                </div>
+                <span class="stepper-label" [class.active]="currentStep >= 2">AI Scan</span>
             </div>
-
-            <!-- Section 3: Professional Details -->
-            <div class="app-card">
-                <div class="section-header">
-                    <mat-icon class="section-icon text-emerald-500">work</mat-icon>
-                    <h2 class="section-title">Professional & Financial Details</h2>
+            <div class="stepper-line" [class.active]="currentStep >= 3"></div>
+            <!-- Step 3 -->
+            <div class="flex items-center gap-2">
+                <div class="stepper-dot" [class.active]="currentStep >= 3">
+                    <span>3</span>
                 </div>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label class="form-label">Education <span class="required">*</span></label>
-                        <select [(ngModel)]="form.education" name="education" required class="form-input">
-                            <option value="">Select</option>
-                            <option value="Below 10th">Below 10th</option>
-                            <option value="10th Pass">10th Pass</option>
-                            <option value="12th Pass">12th Pass</option>
-                            <option value="Graduate">Graduate</option>
-                            <option value="Post Graduate">Post Graduate</option>
-                            <option value="Doctorate">Doctorate</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Employment Type</label>
-                        <select [(ngModel)]="form.employment_type" name="employment_type" class="form-input">
-                            <option value="">Select</option>
-                            <option value="Salaried">Salaried</option>
-                            <option value="Self Employed">Self Employed</option>
-                            <option value="Business Owner">Business Owner</option>
-                            <option value="Freelancer">Freelancer</option>
-                            <option value="Unemployed">Unemployed</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">CIBIL / Civil Score <span class="required">*</span></label>
-                        <input type="number" [(ngModel)]="form.civil_score" name="civil_score" required
-                            class="form-input" placeholder="e.g. 750" min="300" max="900">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Monthly Income (₹)</label>
-                        <input type="number" [(ngModel)]="form.monthly_income" name="monthly_income"
-                            class="form-input" placeholder="e.g. 50000">
-                    </div>
-                </div>
+                <span class="stepper-label" [class.active]="currentStep >= 3">Review</span>
             </div>
+        </div>
 
-            <!-- Section 4: Address -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- STEP 1: Upload Documents                               -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div *ngIf="currentStep === 1" class="animate-fade-in-up">
             <div class="app-card">
                 <div class="section-header">
-                    <mat-icon class="section-icon text-orange-500">home</mat-icon>
-                    <h2 class="section-title">Residential Address</h2>
-                </div>
-                <div class="form-grid">
-                    <div class="form-group full-width">
-                        <label class="form-label">Address</label>
-                        <textarea [(ngModel)]="form.address" name="address" class="form-input"
-                            placeholder="House No, Street, Locality..." rows="2"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">City</label>
-                        <input type="text" [(ngModel)]="form.city" name="city" class="form-input" placeholder="City">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">State</label>
-                        <input type="text" [(ngModel)]="form.state" name="state" class="form-input" placeholder="State">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Pincode</label>
-                        <input type="text" [(ngModel)]="form.pincode" name="pincode" class="form-input"
-                            placeholder="6-digit PIN" maxlength="6">
+                    <mat-icon class="section-icon text-blue-500">cloud_upload</mat-icon>
+                    <div>
+                        <h2 class="section-title">Upload Your Documents</h2>
+                        <p class="text-sm text-gray-500 dark:text-slate-400 mt-0.5">
+                            Upload clear scans or photos. All documents are required.
+                            <span class="font-semibold text-blue-600 dark:text-blue-400">{{ getUploadedCount() }}/{{ documents.length }}</span> uploaded
+                        </p>
                     </div>
                 </div>
-            </div>
 
-            <!-- Section 5: Document Uploads -->
-            <div class="app-card">
-                <div class="section-header">
-                    <mat-icon class="section-icon text-rose-500">upload_file</mat-icon>
-                    <h2 class="section-title">Document Uploads</h2>
-                </div>
-                <p class="text-sm text-gray-500 dark:text-slate-400 mb-6 -mt-2">Upload PDF or image files (max 10MB each). Aadhar & PAN are mandatory.</p>
+                <div class="doc-grid">
+                    <div *ngFor="let doc of documents" class="doc-upload-card" [class.uploaded]="doc.file"
+                        (dragover)="onDragOver($event)" (drop)="onFileDrop($event, doc.key)">
 
-                <div class="upload-grid">
-                    <div *ngFor="let field of ['aadhar_pdf', 'pan_pdf', 'photo', 'signature', 'income_proof', 'address_proof']"
-                        class="upload-card" [class.uploaded]="files[field]">
-                        <input type="file" [id]="field" (change)="onFileChange($event, field)" accept=".pdf,.jpg,.jpeg,.png" class="hidden-input">
-                        <label [for]="field" class="upload-label">
-                            <mat-icon class="upload-icon" *ngIf="!files[field]">cloud_upload</mat-icon>
-                            <mat-icon class="upload-icon text-green-500" *ngIf="files[field]">check_circle</mat-icon>
-                            <span class="upload-title">{{ fileLabels[field] }}</span>
-                            <span class="upload-hint" *ngIf="!files[field]">
-                                {{ field === 'aadhar_pdf' || field === 'pan_pdf' ? 'Required' : 'Optional' }} — Click to upload
+                        <!-- Hidden file input -->
+                        <input type="file" [id]="doc.key" (change)="onFileSelect($event, doc.key)"
+                            [accept]="doc.accept" class="hidden-input">
+
+                        <!-- Upload state -->
+                        <label *ngIf="!doc.file" [for]="doc.key" class="doc-upload-content">
+                            <div class="doc-icon-ring">
+                                <mat-icon>{{ doc.icon }}</mat-icon>
+                            </div>
+                            <span class="doc-label">{{ doc.label }}</span>
+                            <span class="doc-desc">{{ doc.description }}</span>
+                            <span class="doc-cta">
+                                <mat-icon class="text-sm">add_circle_outline</mat-icon> Choose file
                             </span>
-                            <span class="upload-filename" *ngIf="files[field]">{{ getFileName(field) }}</span>
                         </label>
+
+                        <!-- Uploaded state -->
+                        <div *ngIf="doc.file" class="doc-uploaded-content">
+                            <div class="doc-icon-ring uploaded-ring">
+                                <mat-icon>check_circle</mat-icon>
+                            </div>
+                            <span class="doc-label">{{ doc.label }}</span>
+                            <span class="doc-filename">{{ doc.file.name }}</span>
+                            <button type="button" class="doc-remove-btn" (click)="removeFile(doc.key)">
+                                <mat-icon class="text-sm">close</mat-icon> Remove
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Submit -->
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pb-10">
-                <button type="button" mat-button class="text-gray-500 dark:text-slate-400" routerLink="/user/result">
-                    <mat-icon>arrow_back</mat-icon> Back to Results
-                </button>
-                <button type="submit" mat-raised-button color="primary"
-                    class="submit-btn" [disabled]="submitting || !isFormValid()">
-                    <mat-icon class="mr-2">send</mat-icon>
-                    Submit Application
+                <!-- Actions -->
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mt-8">
+                    <button type="button" mat-button class="text-gray-500 dark:text-slate-400" routerLink="/user/result">
+                        <mat-icon>arrow_back</mat-icon> Back to Results
+                    </button>
+                    <button type="button" mat-raised-button color="primary" class="scan-btn"
+                        [disabled]="!canScan()" (click)="startScan()">
+                        <mat-icon class="mr-2">document_scanner</mat-icon>
+                        Scan All Documents with AI
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- STEP 2: Scanning Animation                             -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div *ngIf="currentStep === 2" class="flex items-center justify-center min-h-[60vh]">
+            <div class="app-card text-center max-w-lg w-full p-10 scan-card">
+                <div class="scan-visual">
+                    <div class="scan-ring-outer"></div>
+                    <div class="scan-ring-inner"></div>
+                    <mat-icon class="scan-center-icon">document_scanner</mat-icon>
+                </div>
+                <h2 class="text-2xl font-extrabold text-gray-800 dark:text-white mt-8 mb-2">Scanning Your Documents</h2>
+                <p class="text-gray-500 dark:text-slate-400 mb-6">{{ scanStatus }}</p>
+
+                <!-- Progress bar -->
+                <div class="w-full bg-gray-200 dark:bg-slate-700 rounded-full h-3 overflow-hidden mb-3">
+                    <div class="h-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full transition-all duration-500 ease-out"
+                        [style.width.%]="scanProgress"></div>
+                </div>
+                <span class="text-sm font-bold text-blue-600 dark:text-blue-400">{{ scanProgress | number:'1.0-0' }}%</span>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- STEP 3: Review Extracted Data                          -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div *ngIf="currentStep === 3" class="animate-fade-in-up">
+            <form (ngSubmit)="onSubmit()" class="space-y-6">
+
+                <!-- AI Extraction Banner -->
+                <div class="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-200 dark:border-green-800/50 rounded-2xl p-4 flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900/40 flex items-center justify-center flex-shrink-0">
+                        <mat-icon class="text-green-600 dark:text-green-400">auto_awesome</mat-icon>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-green-800 dark:text-green-300">AI Extraction Complete</h3>
+                        <p class="text-sm text-green-600 dark:text-green-400">
+                            Fields marked with <span class="inline-flex items-center gap-0.5 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400 px-1.5 py-0.5 rounded text-xs font-bold">AI</span> were auto-extracted. Please verify and edit if needed.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Section: Personal Information -->
+                <div class="app-card">
+                    <div class="section-header">
+                        <mat-icon class="section-icon text-blue-500">person</mat-icon>
+                        <h2 class="section-title">Personal Information</h2>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">
+                                Full Name <span class="required">*</span>
+                                <span *ngIf="isAutoFilled('name')" class="ai-badge">AI</span>
+                            </label>
+                            <input type="text" [(ngModel)]="form.name" name="name" required class="form-input" placeholder="Full name">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                Date of Birth
+                                <span *ngIf="isAutoFilled('date_of_birth')" class="ai-badge">AI</span>
+                            </label>
+                            <input type="text" [(ngModel)]="form.date_of_birth" name="dob" class="form-input" placeholder="DD/MM/YYYY">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                Gender
+                                <span *ngIf="isAutoFilled('gender')" class="ai-badge">AI</span>
+                            </label>
+                            <select [(ngModel)]="form.gender" name="gender" class="form-input">
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Marital Status</label>
+                            <select [(ngModel)]="form.marital_status" name="marital_status" class="form-input">
+                                <option value="">Select</option>
+                                <option value="Single">Single</option>
+                                <option value="Married">Married</option>
+                                <option value="Divorced">Divorced</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section: Identity Details -->
+                <div class="app-card">
+                    <div class="section-header">
+                        <mat-icon class="section-icon text-indigo-500">badge</mat-icon>
+                        <h2 class="section-title">Identity & Contact</h2>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">
+                                Aadhar Number <span class="required">*</span>
+                                <span *ngIf="isAutoFilled('aadhar_number')" class="ai-badge">AI</span>
+                            </label>
+                            <input type="text" [(ngModel)]="form.aadhar_number" name="aadhar" required class="form-input" placeholder="XXXX XXXX XXXX">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                PAN Number <span class="required">*</span>
+                                <span *ngIf="isAutoFilled('pan_number')" class="ai-badge">AI</span>
+                            </label>
+                            <input type="text" [(ngModel)]="form.pan_number" name="pan" required class="form-input" placeholder="ABCDE1234F" style="text-transform: uppercase;">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                Father's Name
+                                <span *ngIf="isAutoFilled('father_name')" class="ai-badge">AI</span>
+                            </label>
+                            <input type="text" [(ngModel)]="form.father_name" name="father_name" class="form-input" placeholder="Father's name">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Mobile Number</label>
+                            <input type="tel" [(ngModel)]="form.mobile" name="mobile" class="form-input" placeholder="10-digit mobile" maxlength="10">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" [(ngModel)]="form.email" name="email" class="form-input" placeholder="your@email.com">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section: Financial Details -->
+                <div class="app-card">
+                    <div class="section-header">
+                        <mat-icon class="section-icon text-emerald-500">payments</mat-icon>
+                        <h2 class="section-title">Financial & Professional</h2>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">
+                                Monthly Income (₹)
+                                <span *ngIf="isAutoFilled('monthly_income')" class="ai-badge">AI</span>
+                            </label>
+                            <input type="text" [(ngModel)]="form.monthly_income" name="monthly_income" class="form-input" placeholder="e.g. 50000">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                Employer
+                                <span *ngIf="isAutoFilled('employer')" class="ai-badge">AI</span>
+                            </label>
+                            <input type="text" [(ngModel)]="form.employer" name="employer" class="form-input" placeholder="Company name">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                Employment Type
+                                <span *ngIf="isAutoFilled('employment_type')" class="ai-badge">AI</span>
+                            </label>
+                            <select [(ngModel)]="form.employment_type" name="employment_type" class="form-input">
+                                <option value="">Select</option>
+                                <option value="Salaried">Salaried</option>
+                                <option value="Self Employed">Self Employed</option>
+                                <option value="Business Owner">Business Owner</option>
+                                <option value="Freelancer">Freelancer</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Education</label>
+                            <select [(ngModel)]="form.education" name="education" class="form-input">
+                                <option value="">Select</option>
+                                <option value="Below 10th">Below 10th</option>
+                                <option value="10th Pass">10th Pass</option>
+                                <option value="12th Pass">12th Pass</option>
+                                <option value="Graduate">Graduate</option>
+                                <option value="Post Graduate">Post Graduate</option>
+                                <option value="Doctorate">Doctorate</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">CIBIL / Civil Score</label>
+                            <input type="number" [(ngModel)]="form.civil_score" name="civil_score" class="form-input" placeholder="e.g. 750" min="300" max="900">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section: Bank Details -->
+                <div class="app-card">
+                    <div class="section-header">
+                        <mat-icon class="section-icon text-amber-500">account_balance</mat-icon>
+                        <h2 class="section-title">Bank Account Details</h2>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">
+                                Account Number
+                                <span *ngIf="isAutoFilled('account_number')" class="ai-badge">AI</span>
+                            </label>
+                            <input type="text" [(ngModel)]="form.account_number" name="account_number" class="form-input" placeholder="Account number">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                IFSC Code
+                                <span *ngIf="isAutoFilled('ifsc_code')" class="ai-badge">AI</span>
+                            </label>
+                            <input type="text" [(ngModel)]="form.ifsc_code" name="ifsc_code" class="form-input" placeholder="e.g. SBIN0001234" style="text-transform: uppercase;">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                Bank Name
+                                <span *ngIf="isAutoFilled('bank_name')" class="ai-badge">AI</span>
+                            </label>
+                            <input type="text" [(ngModel)]="form.bank_name" name="bank_name" class="form-input" placeholder="Bank name">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                Branch
+                                <span *ngIf="isAutoFilled('branch')" class="ai-badge">AI</span>
+                            </label>
+                            <input type="text" [(ngModel)]="form.branch" name="branch" class="form-input" placeholder="Branch name">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section: Address -->
+                <div class="app-card">
+                    <div class="section-header">
+                        <mat-icon class="section-icon text-orange-500">home</mat-icon>
+                        <h2 class="section-title">Address</h2>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label class="form-label">
+                                Address
+                                <span *ngIf="isAutoFilled('address')" class="ai-badge">AI</span>
+                            </label>
+                            <textarea [(ngModel)]="form.address" name="address" class="form-input" placeholder="Full address..." rows="2"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">City</label>
+                            <input type="text" [(ngModel)]="form.city" name="city" class="form-input" placeholder="City">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">State</label>
+                            <input type="text" [(ngModel)]="form.state" name="state" class="form-input" placeholder="State">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                Pincode
+                                <span *ngIf="isAutoFilled('pincode')" class="ai-badge">AI</span>
+                            </label>
+                            <input type="text" [(ngModel)]="form.pincode" name="pincode" class="form-input" placeholder="6-digit PIN" maxlength="6">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit -->
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pb-10">
+                    <button type="button" mat-button class="text-gray-500 dark:text-slate-400" (click)="goBack()">
+                        <mat-icon>arrow_back</mat-icon> Re-upload Documents
+                    </button>
+                    <button type="submit" mat-raised-button color="primary"
+                        class="submit-btn" [disabled]="submitting || !isReviewFormValid()">
+                        <mat-icon class="mr-2">send</mat-icon>
+                        Submit Application
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- STEP 4: Success                                        -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div *ngIf="currentStep === 4" class="flex items-center justify-center min-h-[80vh]">
+            <div class="app-card success-card text-center max-w-lg w-full p-10">
+                <div class="success-icon-ring mx-auto mb-6">
+                    <mat-icon class="text-green-500 text-6xl">check_circle</mat-icon>
+                </div>
+                <h2 class="text-3xl font-extrabold text-gray-800 dark:text-white mb-3">Application Submitted!</h2>
+                <p class="text-gray-500 dark:text-slate-400 mb-2">
+                    Your loan application to <span class="font-bold text-blue-600 dark:text-blue-400">{{ selectedBank }}</span> has been submitted.
+                </p>
+                <p class="text-sm text-gray-400 dark:text-slate-500 mb-3">
+                    Documents stored securely on cloud. A bank officer will review your application shortly.
+                </p>
+                <div class="inline-flex items-center gap-2 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 px-4 py-2 rounded-xl text-sm font-semibold mb-8">
+                    <mat-icon class="text-lg">cloud_done</mat-icon>
+                    Documents saved to Cloudinary + MongoDB
+                </div>
+                <br>
+                <button mat-raised-button color="primary" class="px-8 py-2 text-lg rounded-xl" (click)="goHome()">
+                    Back to Home
                 </button>
             </div>
-        </form>
+        </div>
     </div>
 </div>

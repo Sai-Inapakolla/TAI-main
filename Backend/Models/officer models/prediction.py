@@ -1,8 +1,6 @@
 import pandas as pd
 import numpy as np
 import joblib
-
-# --- Constants and Rule-Based Functions (from notebook) ---
 BANK_RULES = {
     0: {"name": "HDFC", "min_cibil": 750, "min_salary": 25000, "min_exp": 2, "max_dti": 0.45},
     1: {"name": "SBI", "min_cibil": 750, "min_salary": 15000, "min_exp": 1, "max_dti": 0.50},
@@ -18,8 +16,6 @@ BANK_RULES = {
 
 def officer_approval(row):
     bank = row["Approved_Bank"]
-
-    # If user never selected a bank (rejected at user level)
     if bank == -1:
         return 0
 
@@ -68,12 +64,7 @@ def eligible_loan_amount(row):
     emi_penalty = row["Existing_EMI"] * row["Loan_Amount_Term"]
 
     eligible = base_amount - emi_penalty
-
-    # Bank cannot approve more than requested
     return max(0, min(eligible, row["LoanAmount"]))
-
-# --- Load Models and Features ---
-# --- Load Models and Features ---
 import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -89,15 +80,12 @@ try:
     print("All officer models and feature lists loaded successfully.")
 except FileNotFoundError as e:
     print(f"Error loading model or feature file: {e}. Make sure all .pkl files are in the same directory.")
-    # Exit or handle error appropriately in a real application
     exit()
 
 def officer_predict(data: dict) -> dict:
     """
     Predicts officer approval, fraud risk, and eligible loan amount for a single loan application.
     """
-    
-    # 1. Map Frontend Keys to Model Feature Names
     input_dict = {
         'Age': data.get('age', 30),
         'Gender': data.get('gender', 'Male'),
@@ -118,23 +106,7 @@ def officer_predict(data: dict) -> dict:
         'Hidden_CIBIL': data.get('Hidden_CIBIL', 700),
         'Approved_Bank': data.get('Approved_Bank', 0)
     }
-
-    # If keys are already in Title Case (passed from rawApplication.input directly with some overrides)
-    # We should merge the raw data with our mapped defaults if the raw inputs use original keys (Age, Gender...)
-    # But frontend sends 'applicant' object constructed from 'input' in loadApplication.
-    # Actually, in runPrediction():
-    # modelInput = { ...this.rawApplication.input, "Hidden_CIBIL": ..., "Approved_Bank": ... }
-    # rawApplication.input has Title Case keys (Age, Gender...) as saved in app.py predict() 'input': data
-    # WAIT! user-eligibility uses camelCase for sending to backend.
-    # app.py predict() receives user-eligibility data (camelCase).
-    # Then it saves: 'input': data. So 'input' has camelCase keys!
-    # Let's verify 'local_applications.json' again.
-    
-    # 2. Encoding
     df = pd.DataFrame([input_dict])
-    
-    # If the input data actually had Title Case keys (e.g. from Python test script), use them.
-    # Check if 'Age' is in data, if so override.
     if 'Age' in data: df['Age'] = data['Age']
     if 'ApplicantIncome' in data: df['ApplicantIncome'] = data['ApplicantIncome']
     if 'LoanAmount' in data: df['LoanAmount'] = data['LoanAmount']
@@ -155,8 +127,6 @@ def officer_predict(data: dict) -> dict:
         },
         'Dependents': {'0': 0, '1': 1, '2': 2, '3+': 3}
     }
-    
-    # Apply mappings
     for col, mapping in mappings.items():
         if col in df.columns:
             val = df.iloc[0][col]
@@ -164,8 +134,6 @@ def officer_predict(data: dict) -> dict:
                 val = val.strip()
             encoded_val = mapping.get(str(val), 0)
             df[col] = encoded_val
-
-    # Convert numeric columns explicitly
     numeric_cols = ['Age', 'Work_Experience_Years', 'ApplicantIncome', 'CoapplicantIncome', 
                     'Existing_EMI', 'LoanAmount', 'Loan_Amount_Term', 'Hidden_CIBIL', 'Approved_Bank']
     for col in numeric_cols:
@@ -173,8 +141,6 @@ def officer_predict(data: dict) -> dict:
              df[col] = pd.to_numeric(df[col], errors='coerce').fillna(0)
 
     results = {}
-
-    # --- Rule-Based Predictions ---
     try:
         results['Officer_Approved_Rule'] = int(officer_approval(df.iloc[0]))
         results['Fraud_Label_Rule'] = int(fraud_label(df.iloc[0]))
@@ -184,25 +150,17 @@ def officer_predict(data: dict) -> dict:
         results['Officer_Approved_Rule'] = 0
         results['Fraud_Label_Rule'] = 0
         results['Eligible_Loan_Amount_Rule'] = 0.0
-
-    # --- ML Model Predictions ---
     try:
-        # Prepare features for officer approval model
-        # Ensure columns exist
         for feat in officer_approval_features:
             if feat not in df.columns: df[feat] = 0
         
         features_for_officer = df[officer_approval_features]
         results['Officer_Approved_Model'] = int(officer_approval_model.predict(features_for_officer)[0])
-
-        # Prepare features for fraud detection model
         for feat in fraud_features:
             if feat not in df.columns: df[feat] = 0
             
         features_for_fraud = df[fraud_features]
         results['Fraud_Label_Model'] = int(fraud_detection_model.predict(features_for_fraud)[0])
-
-        # Prepare features for loan amount model
         for feat in loan_amount_features:
             if feat not in df.columns: df[feat] = 0
             
@@ -218,8 +176,6 @@ def officer_predict(data: dict) -> dict:
     return results
 
 if __name__ == '__main__':
-    # Example usage:
-    # This example data is taken from the first row of the 'officer_df' in the notebook
     sample_application = {
         "Age": 53, "Gender": 1, "Marital_Status": 0, "Dependents": 3,
         "Education": 1, "Self_Employed": 1, "Work_Experience_Years": 31,
@@ -234,8 +190,6 @@ if __name__ == '__main__':
     predictions = officer_predict(sample_application)
     for key, value in predictions.items():
         print(f"- {key}: {value}")
-
-    # Another example with different data
     sample_application_2 = {
         "Age": 30, "Gender": 0, "Marital_Status": 1, "Dependents": 0,
         "Education": 2, "Self_Employed": 0, "Work_Experience_Years": 5,
@@ -243,7 +197,7 @@ if __name__ == '__main__':
         "Salary_Payment_Mode": 1, "Existing_EMI": 1000,
         "Residential_Assets": 0, "Area": 1, "Loan_Purpose": 2,
         "LoanAmount": 500000, "Loan_Amount_Term": 60,
-        "Hidden_CIBIL": 720.00, "Approved_Bank": 2 # ICICI bank
+        "Hidden_CIBIL": 720.00, "Approved_Bank": 2
     }
     print("\nRunning prediction for second sample application:")
     predictions_2 = officer_predict(sample_application_2)

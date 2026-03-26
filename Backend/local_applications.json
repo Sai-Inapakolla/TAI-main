@@ -423,5 +423,1001 @@
         "submitted_at": "2026-03-24T08:11:12.273Z",
         "timestamp": "2026-03-24T08:11:12.273Z",
         "_id": "1338a1a8-6f92-4caf-8732-9956b5a960cf"
+    },
+    {
+        "input": {
+            "age": 30,
+            "gender": "Male",
+            "maritalStatus": "Single",
+            "dependents": "1",
+            "education": "Graduate",
+            "area": "Urban",
+            "selfEmployed": "Yes",
+            "experience": 2,
+            "applicantIncome": 30000,
+            "coApplicantIncome": 0,
+            "salaryMode": "Cash",
+            "existingEmi": 0,
+            "assets": "Own House",
+            "loanPurpose": "Education",
+            "loanAmount": 20000,
+            "tenure": "12"
+        },
+        "prediction": {
+            "approved": false,
+            "bank": "N/A",
+            "bank_list": [],
+            "probability": 26.510000228881836,
+            "status": "Rejected"
+        },
+        "status": "predicted",
+        "selected_bank": null,
+        "timestamp": "2026-03-24T09:06:47.038Z",
+        "_id": "ade8e020-ff9b-4130-ac34-462e03f323a1"
+    },
+    {
+        "input": {
+            "age": 30,
+            "gender": "Male",
+            "maritalStatus": "Single",
+            "dependents": "1",
+            "education": "Graduate",
+            "area": "Urban",
+            "selfEmployed": "No",
+            "experience": 5,
+            "applicantIncome": 50000,
+            "coApplicantIncome": 10000,
+            "salaryMode": "Bank Transfer",
+            "existingEmi": 0,
+            "assets": "Own House",
+            "loanPurpose": "Education",
+            "loanAmount": 11000,
+            "tenure": "12"
+        },
+        "prediction": {
+            "approved": true,
+            "bank": "State Bank of India (SBI)",
+            "bank_list": [
+                {
+                    "name": "State Bank of India (SBI)",
+                    "probability": 96.5,
+                    "risk": "Low"
+                },
+                {
+                    "name": "Kotak Mahindra Bank",
+                    "probability": 96.5,
+                    "risk": "Low"
+                },
+                {
+                    "name": "HDFC Bank",
+                    "probability": 37.1,
+                    "risk": "Low"
+                },
+                {
+                    "name": "IndusInd Bank",
+                    "probability": 35,
+                    "risk": "Low"
+                },
+                {
+                    "name": "Bank of India",
+                    "probability": 31.6,
+                    "risk": "Low"
+                }
+            ],
+            "probability": 85.30000305175781,
+            "status": "Approved"
+        },
+        "status": "predicted",
+        "selected_bank": null,
+        "timestamp": "2026-03-24T09:08:02.145Z",
+        "_id": "99623de7-4c40-4a8a-ba52-033de56c3538"
+    },
+    {
+        "input": {
+            "age": 30,
+            "gender": "Male",
+            "maritalStatus": "Married",
+            "dependents": "1",
+            "education": "Graduate",
+            "area": "Urban",
+            "selfEmployed": "Yes",
+            "experience": 1,
+            "applicantIncome": 50000,
+            "coApplicantIncome": "0",
+            "salaryMode": "Cheque",
+            "existingEmi": 0,
+            "assets": "None",
+            "loanPurpose": "Education",
+            "loanAmount": 20000,
+            "tenure": "12"
+        },
+        "prediction": {
+            "approved": true,
+            "bank": "Kotak Mahindra Bank",
+            "bank_list": [
+                {
+                    "name": "Kotak Mahindra Bank",
+                    "probability": 96.5,
+                    "risk": "Low"
+                },
+                {
+                    "name": "State Bank of India (SBI)",
+                    "probability": 61.6,
+                    "risk": "Low"
+                },
+                {
+                    "name": "HDFC Bank",
+                    "probability": 25.8,
+                    "risk": "Low"
+                },
+                {
+                    "name": "IndusInd Bank",
+                    "probability": 16.9,
+                    "risk": "Low"
+                },
+                {
+                    "name": "ICICI Bank",
+                    "probability": 5.6,
+                    "risk": "Low"
+                }
+            ],
+            "probability": 93.62999725341797,
+            "status": "Approved"
+        },
+        "status": "predicted",
+        "selected_bank": null,
+        "timestamp": "2026-03-24T09:39:13.196Z",
+        "_id": "83188042-8c89-4ede-90a5-000d55b1825b"
+    },
+    {
+        "input": {
+            "age": 30,
+            "gender": "Male",
+            "maritalStatus": "Single",
+            "dependents": "1",
+            "education": "Graduate",
+            "area": "Urban",
+            "selfEmployed": "No",
+            "experience": 5,
+            "applicantIncome": 50000,
+            "coApplicantIncome": 10000,
+            "salaryMode": "Bank Transfer",
+            "existingEmi": 0,
+            "assets": "Own House",
+            "loanPurpose": "Education",
+            "loanAmount": 11000,
+            "tenure": "12"
+        },
+        "prediction": {
+            "approved": true,
+            "bank": "State Bank of India (SBI)",
+            "bank_list": [
+                {
+                    "name": "State Bank of India (SBI)",
+                    "probability": 96.5,
+                    "risk": "Low"
+                },
+                {
+                    "name": "Kotak Mahindra Bank",
+                    "probability": 96.5,
+                    "risk": "Low"
+                },
+                {
+                    "name": "HDFC Bank",
+                    "probability": 37.1,
+                    "risk": "Low"
+                },
+                {
+                    "name": "IndusInd Bank",
+                    "probability": 35,
+                    "risk": "Low"
+                },
+                {
+                    "name": "Bank of India",
+                    "probability": 31.6,
+                    "risk": "Low"
+                }
+            ],
+            "probability": 85.30000305175781,
+            "status": "Approved"
+        },
+        "status": "submitted",
+        "selected_bank": null,
+        "timestamp": "2026-03-24T09:45:49.071Z",
+        "_id": "9d3debaf-7bec-48f7-a76a-2cdd55003704",
+        "applicant": {
+            "name": "SAI INAPAKOLLA",
+            "aadhar_number": "123456543211",
+            "pan_number": "AJSHGF876",
+            "mobile": "9876512876",
+            "email": "user@gmail.com",
+            "date_of_birth": "2000-01-01",
+            "gender": "Male",
+            "marital_status": "Single",
+            "education": "12th Pass",
+            "employment_type": "Salaried",
+            "civil_score": "750",
+            "monthly_income": "50000",
+            "address": "Parul University",
+            "city": "BRC",
+            "state": "",
+            "pincode": "391760"
+        },
+        "documents": {
+            "aadhar_pdf": "1774345634927-986a9400-Sai_Inapakolla_SDE_Resume (3).pdf",
+            "pan_pdf": "1774345634929-5194de43-Sai_Inapakolla_SDE_Resume (3).pdf"
+        },
+        "submitted_at": "2026-03-24T09:47:14.936Z"
+    },
+    {
+        "input": {
+            "age": 30,
+            "gender": "Male",
+            "maritalStatus": "Single",
+            "dependents": "0",
+            "education": "Graduate",
+            "area": "Urban",
+            "selfEmployed": "No",
+            "experience": 8,
+            "applicantIncome": 50000,
+            "coApplicantIncome": 10000,
+            "salaryMode": "Bank Transfer",
+            "existingEmi": 0,
+            "assets": "House + Land",
+            "loanPurpose": "Education",
+            "loanAmount": 11000,
+            "tenure": "12"
+        },
+        "prediction": {
+            "approved": true,
+            "bank": "Kotak Mahindra Bank",
+            "bank_list": [
+                {
+                    "name": "Kotak Mahindra Bank",
+                    "probability": 96.5,
+                    "risk": "Low"
+                },
+                {
+                    "name": "State Bank of India (SBI)",
+                    "probability": 75.5,
+                    "risk": "Medium"
+                },
+                {
+                    "name": "HDFC Bank",
+                    "probability": 59,
+                    "risk": "Medium"
+                },
+                {
+                    "name": "ICICI Bank",
+                    "probability": 46,
+                    "risk": "Medium"
+                },
+                {
+                    "name": "IndusInd Bank",
+                    "probability": 37.7,
+                    "risk": "Medium"
+                }
+            ],
+            "probability": 76.06999969482422,
+            "status": "Approved"
+        },
+        "status": "submitted",
+        "selected_bank": null,
+        "timestamp": "2026-03-24T09:51:18.216Z",
+        "_id": "c89e629c-11ef-432a-9f4f-a9f3c79b1bca",
+        "applicant": {
+            "name": "SAI INAPAKOLLA",
+            "aadhar_number": "784375322222",
+            "pan_number": "NBVC2661",
+            "mobile": "8765456712",
+            "email": "user@example.com",
+            "date_of_birth": "2000-01-01",
+            "gender": "Male",
+            "marital_status": "Single",
+            "education": "Graduate",
+            "employment_type": "Salaried",
+            "civil_score": "679",
+            "monthly_income": "50000",
+            "address": "876s",
+            "city": "snd",
+            "state": "sdf",
+            "pincode": "23431"
+        },
+        "documents": {
+            "aadhar_pdf": "1774345969926-3cba7f5b-Sai_Inapakolla_SDE_Resume (3).pdf",
+            "pan_pdf": "1774345969927-c8291957-Chess Application with Flask and MySQL - Python.pdf"
+        },
+        "submitted_at": "2026-03-24T09:52:49.951Z"
+    },
+    {
+        "input": {
+            "age": 30,
+            "gender": "Male",
+            "maritalStatus": "Single",
+            "dependents": "1",
+            "education": "Graduate",
+            "area": "Urban",
+            "selfEmployed": "No",
+            "experience": 8,
+            "applicantIncome": 50000,
+            "coApplicantIncome": 10000,
+            "salaryMode": "Bank Transfer",
+            "existingEmi": 0,
+            "assets": "Own House",
+            "loanPurpose": "Education",
+            "loanAmount": 10000,
+            "tenure": "12"
+        },
+        "prediction": {
+            "approved": true,
+            "bank": "State Bank of India (SBI)",
+            "bank_list": [
+                {
+                    "name": "State Bank of India (SBI)",
+                    "probability": 96.5,
+                    "risk": "Low"
+                },
+                {
+                    "name": "Kotak Mahindra Bank",
+                    "probability": 90.9,
+                    "risk": "Low"
+                },
+                {
+                    "name": "HDFC Bank",
+                    "probability": 68.7,
+                    "risk": "Low"
+                },
+                {
+                    "name": "IndusInd Bank",
+                    "probability": 60.9,
+                    "risk": "Medium"
+                },
+                {
+                    "name": "IDFC FIRST Bank",
+                    "probability": 37.3,
+                    "risk": "Medium"
+                }
+            ],
+            "probability": 80.26000213623047,
+            "status": "Approved"
+        },
+        "status": "submitted",
+        "selected_bank": null,
+        "timestamp": "2026-03-24T09:56:11.247Z",
+        "_id": "49a623a6-5484-481d-a14a-1c9602f45fcd",
+        "applicant": {
+            "name": "kuhg",
+            "aadhar_number": "234322123432",
+            "pan_number": "PASHU212",
+            "mobile": "7656787678",
+            "email": "user@gmail.com",
+            "date_of_birth": "2000-01-01",
+            "gender": "Male",
+            "marital_status": "Single",
+            "education": "Graduate",
+            "employment_type": "Salaried",
+            "civil_score": "850",
+            "monthly_income": "50000",
+            "address": "kjhg",
+            "city": "bv",
+            "state": "njhg",
+            "pincode": "762828"
+        },
+        "documents": {
+            "aadhar_pdf": "1774346243508-117c2fe1-ATAL BHAWAN A2 4th floor admission.pdf",
+            "pan_pdf": "1774346243512-4756db79-Chess Application with Flask and MySQL - Python.pdf"
+        },
+        "submitted_at": "2026-03-24T09:57:23.525Z"
+    },
+    {
+        "input": {
+            "age": 30,
+            "gender": "Male",
+            "maritalStatus": "Single",
+            "dependents": "0",
+            "education": "Graduate",
+            "area": "Urban",
+            "selfEmployed": "No",
+            "experience": 5,
+            "applicantIncome": 50000,
+            "coApplicantIncome": 10000,
+            "salaryMode": "Bank Transfer",
+            "existingEmi": 0,
+            "assets": "Own House",
+            "loanPurpose": "Wedding",
+            "loanAmount": 11000,
+            "tenure": "12"
+        },
+        "prediction": {
+            "approved": true,
+            "bank": "Kotak Mahindra Bank",
+            "bank_list": [
+                {
+                    "name": "Kotak Mahindra Bank",
+                    "probability": 96.5,
+                    "risk": "Low"
+                },
+                {
+                    "name": "State Bank of India (SBI)",
+                    "probability": 59.4,
+                    "risk": "Low"
+                },
+                {
+                    "name": "HDFC Bank",
+                    "probability": 30.2,
+                    "risk": "Medium"
+                },
+                {
+                    "name": "Bank of India",
+                    "probability": 29.7,
+                    "risk": "Medium"
+                },
+                {
+                    "name": "ICICI Bank",
+                    "probability": 28.8,
+                    "risk": "Medium"
+                }
+            ],
+            "probability": 81.93000030517578,
+            "status": "Approved"
+        },
+        "status": "approved",
+        "selected_bank": "Kotak Mahindra Bank",
+        "timestamp": "2026-03-24T10:03:29.227Z",
+        "_id": "661e7399-de26-4ae8-a855-f33a3b1db73a",
+        "applicant": {
+            "name": "soidf",
+            "aadhar_number": "12342112311",
+            "pan_number": "JHGFD765",
+            "mobile": "3456534534",
+            "email": "user@gmail.com",
+            "date_of_birth": "1996-01-01",
+            "gender": "Male",
+            "marital_status": "Single",
+            "education": "Graduate",
+            "employment_type": "Salaried",
+            "civil_score": "850",
+            "monthly_income": "50000",
+            "address": "mkjhg",
+            "city": "mnbv",
+            "state": "kjhg",
+            "pincode": "987788"
+        },
+        "documents": {
+            "aadhar_pdf": "1774346677278-2840848a-ATAL BHAWAN A2 4th floor admission.pdf",
+            "pan_pdf": "1774346677290-937704c4-ATAL BHAWAN A2 4th floor admission.pdf"
+        },
+        "submitted_at": "2026-03-24T10:04:37.303Z",
+        "updated_at": "2026-03-24T10:06:54.556Z"
+    },
+    {
+        "input": {
+            "age": 283,
+            "gender": "Male",
+            "maritalStatus": "Single",
+            "dependents": "0",
+            "education": "Graduate",
+            "area": "Urban",
+            "selfEmployed": "No",
+            "experience": 2,
+            "applicantIncome": 23222,
+            "coApplicantIncome": 12120,
+            "salaryMode": "Bank Transfer",
+            "existingEmi": 0,
+            "assets": "None",
+            "loanPurpose": "Medical",
+            "loanAmount": 12000,
+            "tenure": "24"
+        },
+        "prediction": {
+            "approved": false,
+            "bank": "N/A",
+            "bank_list": [],
+            "probability": 0.8500000238418579,
+            "status": "Rejected"
+        },
+        "status": "predicted",
+        "selected_bank": null,
+        "timestamp": "2026-03-24T10:09:39.731Z",
+        "_id": "f981b5ee-28ca-46e7-96de-df469fbf0353"
+    },
+    {
+        "input": {
+            "age": 30,
+            "gender": "Male",
+            "maritalStatus": "Single",
+            "dependents": "1",
+            "education": "Graduate",
+            "area": "Urban",
+            "selfEmployed": "No",
+            "experience": 8,
+            "applicantIncome": 50000,
+            "coApplicantIncome": 10000,
+            "salaryMode": "Bank Transfer",
+            "existingEmi": 0,
+            "assets": "House + Land",
+            "loanPurpose": "Education",
+            "loanAmount": 11000,
+            "tenure": "12"
+        },
+        "prediction": {
+            "approved": true,
+            "bank": "State Bank of India (SBI)",
+            "bank_list": [
+                {
+                    "name": "State Bank of India (SBI)",
+                    "probability": 96.5,
+                    "risk": "Low"
+                },
+                {
+                    "name": "Kotak Mahindra Bank",
+                    "probability": 90.9,
+                    "risk": "Low"
+                },
+                {
+                    "name": "HDFC Bank",
+                    "probability": 68.7,
+                    "risk": "Low"
+                },
+                {
+                    "name": "IndusInd Bank",
+                    "probability": 60.9,
+                    "risk": "Medium"
+                },
+                {
+                    "name": "IDFC FIRST Bank",
+                    "probability": 37.3,
+                    "risk": "Medium"
+                }
+            ],
+            "probability": 80.26000213623047,
+            "status": "Approved"
+        },
+        "status": "predicted",
+        "selected_bank": null,
+        "timestamp": "2026-03-24T10:10:27.748Z",
+        "_id": "622b642c-258d-4f5d-9d64-92eb494034fd"
+    },
+    {
+        "input": {
+            "age": 30,
+            "gender": "Male",
+            "maritalStatus": "Single",
+            "dependents": "1",
+            "education": "Graduate",
+            "area": "Urban",
+            "selfEmployed": "No",
+            "experience": 8,
+            "applicantIncome": 50000,
+            "coApplicantIncome": 10000,
+            "salaryMode": "Bank Transfer",
+            "existingEmi": 0,
+            "assets": "House + Land",
+            "loanPurpose": "Education",
+            "loanAmount": 11000,
+            "tenure": "12"
+        },
+        "prediction": {
+            "approved": true,
+            "bank": "State Bank of India (SBI)",
+            "bank_list": [
+                {
+                    "name": "State Bank of India (SBI)",
+                    "probability": 96.5,
+                    "risk": "Low"
+                },
+                {
+                    "name": "Kotak Mahindra Bank",
+                    "probability": 90.9,
+                    "risk": "Low"
+                },
+                {
+                    "name": "HDFC Bank",
+                    "probability": 68.7,
+                    "risk": "Low"
+                },
+                {
+                    "name": "IndusInd Bank",
+                    "probability": 60.9,
+                    "risk": "Medium"
+                },
+                {
+                    "name": "IDFC FIRST Bank",
+                    "probability": 37.3,
+                    "risk": "Medium"
+                }
+            ],
+            "probability": 80.26000213623047,
+            "status": "Approved"
+        },
+        "status": "predicted",
+        "selected_bank": null,
+        "timestamp": "2026-03-26T18:29:34.466Z",
+        "_id": "1379fe4c-7275-4282-b17c-554d47ed3a66"
+    },
+    {
+        "input": {
+            "age": 30,
+            "gender": "Male",
+            "maritalStatus": "Single",
+            "dependents": "1",
+            "education": "Graduate",
+            "area": "Urban",
+            "selfEmployed": "No",
+            "experience": 8,
+            "applicantIncome": 50000,
+            "coApplicantIncome": 10000,
+            "salaryMode": "Bank Transfer",
+            "existingEmi": 0,
+            "assets": "House + Land",
+            "loanPurpose": "Education",
+            "loanAmount": 11000,
+            "tenure": "12"
+        },
+        "prediction": {
+            "approved": true,
+            "bank": "State Bank of India (SBI)",
+            "bank_list": [
+                {
+                    "name": "State Bank of India (SBI)",
+                    "probability": 96.5,
+                    "risk": "Low"
+                },
+                {
+                    "name": "Kotak Mahindra Bank",
+                    "probability": 90.9,
+                    "risk": "Low"
+                },
+                {
+                    "name": "HDFC Bank",
+                    "probability": 68.7,
+                    "risk": "Low"
+                },
+                {
+                    "name": "IndusInd Bank",
+                    "probability": 60.9,
+                    "risk": "Medium"
+                },
+                {
+                    "name": "IDFC FIRST Bank",
+                    "probability": 37.3,
+                    "risk": "Medium"
+                }
+            ],
+            "probability": 80.26000213623047,
+            "status": "Approved"
+        },
+        "status": "predicted",
+        "selected_bank": null,
+        "timestamp": "2026-03-26T19:10:24.374Z",
+        "_id": "fa5a9ab3-5f7e-4f0f-8a1f-e0cc85b93821"
+    },
+    {
+        "_id": "69c5862ab6d0c7bc4806d02c",
+        "selected_bank": "State Bank of India (SBI)",
+        "applicant": {
+            "name": "SAI INAPAKOLLA",
+            "aadhar_number": "576839402109",
+            "pan_number": "sdaffs",
+            "date_of_birth": "01/01/1996",
+            "gender": "Male",
+            "address": "Parul University, Waghodia, vadodara, 391760",
+            "pincode": "391760",
+            "father_name": "cassds",
+            "account_number": "0075100101292",
+            "ifsc_code": "fdfyu876tr",
+            "bank_name": "Union Bank",
+            "branch": "uyfcvbn",
+            "monthly_income": "50000",
+            "employer": "SAI INAPAKOLLA",
+            "employment_type": "Salaried",
+            "mobile": "2324562322",
+            "email": "user@gmail.com",
+            "marital_status": "Single",
+            "education": "Graduate",
+            "civil_score": 800,
+            "city": "Vadodara",
+            "state": "Gujarat"
+        },
+        "documents": {
+            "bank_statement": {
+                "url": "https://res.cloudinary.com/dwzemlern/image/upload/v1774552266/tai-documents/bank_statement/hhlzgxlgkkkbpwolg6up.pdf",
+                "public_id": "tai-documents/bank_statement/hhlzgxlgkkkbpwolg6up"
+            },
+            "salary_slip": {
+                "url": "https://res.cloudinary.com/dwzemlern/image/upload/v1774552266/tai-documents/salary_slip/wybsnbwbraxqprjevrn7.pdf",
+                "public_id": "tai-documents/salary_slip/wybsnbwbraxqprjevrn7"
+            },
+            "pan": {
+                "url": "https://res.cloudinary.com/dwzemlern/image/upload/v1774552266/tai-documents/pan/tfxy16tsnzok8r8tckqh.pdf",
+                "public_id": "tai-documents/pan/tfxy16tsnzok8r8tckqh"
+            },
+            "aadhar": {
+                "url": "https://res.cloudinary.com/dwzemlern/image/upload/v1774552266/tai-documents/aadhar/pwaaokbmdzeqbwidpril.pdf",
+                "public_id": "tai-documents/aadhar/pwaaokbmdzeqbwidpril"
+            },
+            "passbook": {
+                "url": "https://res.cloudinary.com/dwzemlern/image/upload/v1774552266/tai-documents/passbook/udnnlndspeqxjooevsxm.pdf",
+                "public_id": "tai-documents/passbook/udnnlndspeqxjooevsxm"
+            }
+        },
+        "status": "submitted",
+        "submitted_at": "2026-03-26T19:16:58.249Z",
+        "timestamp": "2026-03-26T19:16:58.250Z"
+    },
+    {
+        "input": {
+            "age": 30,
+            "gender": "Male",
+            "maritalStatus": "Single",
+            "dependents": "0",
+            "education": "Graduate",
+            "area": "Urban",
+            "selfEmployed": "No",
+            "experience": 8,
+            "applicantIncome": 50000,
+            "coApplicantIncome": 10000,
+            "salaryMode": "Bank Transfer",
+            "existingEmi": 0,
+            "assets": "Own House",
+            "loanPurpose": "Education",
+            "loanAmount": 11000,
+            "tenure": "12"
+        },
+        "prediction": {
+            "approved": true,
+            "bank": "Kotak Mahindra Bank",
+            "bank_list": [
+                {
+                    "name": "Kotak Mahindra Bank",
+                    "probability": 96.5,
+                    "risk": "Low"
+                },
+                {
+                    "name": "State Bank of India (SBI)",
+                    "probability": 75.5,
+                    "risk": "Medium"
+                },
+                {
+                    "name": "HDFC Bank",
+                    "probability": 59,
+                    "risk": "Medium"
+                },
+                {
+                    "name": "ICICI Bank",
+                    "probability": 46,
+                    "risk": "Medium"
+                },
+                {
+                    "name": "IndusInd Bank",
+                    "probability": 37.7,
+                    "risk": "Medium"
+                }
+            ],
+            "probability": 76.06999969482422,
+            "status": "Approved"
+        },
+        "status": "predicted",
+        "selected_bank": null,
+        "timestamp": "2026-03-26T19:35:55.164Z",
+        "_id": "38aa74f0-11e8-4843-8577-4e4ff6e33f0d"
+    },
+    {
+        "_id": "69c58c33a152180b197cc420",
+        "selected_bank": "Kotak Mahindra Bank",
+        "applicant": {
+            "name": "Name: SAI INAPAKOLLA",
+            "aadhar_number": "576839402109",
+            "pan_number": "ABCD567S",
+            "date_of_birth": "01/01/1996",
+            "gender": "Male",
+            "address": "Parul University, Waghodia, Vadodara, 391760",
+            "pincode": "391760",
+            "father_name": "NAGENDRA PRASAD",
+            "account_number": "0075100101292",
+            "ifsc_code": "UBIN0075",
+            "bank_name": "Union Bank",
+            "branch": "Vadodara",
+            "monthly_income": "50000",
+            "employer": "Name: SAI INAPAKOLLA",
+            "employment_type": "Salaried",
+            "mobile": "9182043256",
+            "email": "user@email.com",
+            "marital_status": "Single",
+            "education": "Graduate",
+            "civil_score": 950,
+            "city": "Vadodara",
+            "state": "Gujarat"
+        },
+        "documents": {
+            "salary_slip": {
+                "url": "https://res.cloudinary.com/dwzemlern/raw/upload/v1774553787/tai-documents/salary_slip/yliikd49jyppao788wpa.pdf",
+                "public_id": "tai-documents/salary_slip/yliikd49jyppao788wpa.pdf"
+            },
+            "aadhar": {
+                "url": "https://res.cloudinary.com/dwzemlern/raw/upload/v1774553786/tai-documents/aadhar/mayc05xbzdq2muuyeypu.pdf",
+                "public_id": "tai-documents/aadhar/mayc05xbzdq2muuyeypu.pdf"
+            },
+            "bank_statement": {
+                "url": "https://res.cloudinary.com/dwzemlern/raw/upload/v1774553787/tai-documents/bank_statement/nx6ds8qz8ap5k9am19vf.pdf",
+                "public_id": "tai-documents/bank_statement/nx6ds8qz8ap5k9am19vf.pdf"
+            },
+            "passbook": {
+                "url": "https://res.cloudinary.com/dwzemlern/raw/upload/v1774553787/tai-documents/passbook/vnp5nwhqry1x1z7pt6em.pdf",
+                "public_id": "tai-documents/passbook/vnp5nwhqry1x1z7pt6em.pdf"
+            },
+            "pan": {
+                "url": "https://res.cloudinary.com/dwzemlern/raw/upload/v1774553787/tai-documents/pan/bekeaokh078ogmhsbf70.pdf",
+                "public_id": "tai-documents/pan/bekeaokh078ogmhsbf70.pdf"
+            }
+        },
+        "status": "approved",
+        "submitted_at": "2026-03-26T19:42:43.705Z",
+        "timestamp": "2026-03-26T19:42:43.705Z",
+        "updated_at": "2026-03-26T19:44:33.428Z"
+    },
+    {
+        "input": {
+            "age": 30,
+            "gender": "Male",
+            "maritalStatus": "Single",
+            "dependents": "1",
+            "education": "Graduate",
+            "area": "Urban",
+            "selfEmployed": "No",
+            "experience": 8,
+            "applicantIncome": 50000,
+            "coApplicantIncome": 10000,
+            "salaryMode": "Bank Transfer",
+            "existingEmi": 0,
+            "assets": "House + Land",
+            "loanPurpose": "Education",
+            "loanAmount": 11000,
+            "tenure": "12"
+        },
+        "prediction": {
+            "approved": true,
+            "bank": "State Bank of India (SBI)",
+            "bank_list": [
+                {
+                    "name": "State Bank of India (SBI)",
+                    "probability": 96.5,
+                    "risk": "Low"
+                },
+                {
+                    "name": "Kotak Mahindra Bank",
+                    "probability": 90.9,
+                    "risk": "Low"
+                },
+                {
+                    "name": "HDFC Bank",
+                    "probability": 68.7,
+                    "risk": "Low"
+                },
+                {
+                    "name": "IndusInd Bank",
+                    "probability": 60.9,
+                    "risk": "Medium"
+                },
+                {
+                    "name": "IDFC FIRST Bank",
+                    "probability": 37.3,
+                    "risk": "Medium"
+                }
+            ],
+            "probability": 80.26000213623047,
+            "status": "Approved"
+        },
+        "status": "predicted",
+        "selected_bank": null,
+        "timestamp": "2026-03-26T20:03:40.858Z",
+        "_id": "bf06a397-8593-465d-a6aa-e7281dd52478"
+    },
+    {
+        "input": {
+            "age": 30,
+            "gender": "Male",
+            "maritalStatus": "Single",
+            "dependents": "1",
+            "education": "Graduate",
+            "area": "Urban",
+            "selfEmployed": "No",
+            "experience": 8,
+            "applicantIncome": 50000,
+            "coApplicantIncome": 10000,
+            "salaryMode": "Bank Transfer",
+            "existingEmi": 0,
+            "assets": "House + Land",
+            "loanPurpose": "Education",
+            "loanAmount": 11000,
+            "tenure": "12"
+        },
+        "prediction": {
+            "approved": true,
+            "bank": "State Bank of India (SBI)",
+            "bank_list": [
+                {
+                    "name": "State Bank of India (SBI)",
+                    "probability": 96.5,
+                    "risk": "Low"
+                },
+                {
+                    "name": "Kotak Mahindra Bank",
+                    "probability": 90.9,
+                    "risk": "Low"
+                },
+                {
+                    "name": "HDFC Bank",
+                    "probability": 68.7,
+                    "risk": "Low"
+                },
+                {
+                    "name": "IndusInd Bank",
+                    "probability": 60.9,
+                    "risk": "Medium"
+                },
+                {
+                    "name": "IDFC FIRST Bank",
+                    "probability": 37.3,
+                    "risk": "Medium"
+                }
+            ],
+            "probability": 80.26000213623047,
+            "status": "Approved"
+        },
+        "status": "predicted",
+        "selected_bank": null,
+        "timestamp": "2026-03-26T20:07:20.108Z",
+        "_id": "85b1cf40-51ab-45b6-b58e-4a36b73a3118"
+    },
+    {
+        "_id": "69c594324cce4bf5e987908e",
+        "selected_bank": "HDFC Bank",
+        "applicant": {
+            "name": "SAI INAPAKOLLA",
+            "aadhar_number": "5770 7287 5728",
+            "pan_number": "ABCE56S7",
+            "date_of_birth": "01/01/1996",
+            "gender": "Male",
+            "address": "Parul University, Waghodia, Vadodara, 391760.",
+            "pincode": "391760",
+            "father_name": "NAGENDRA PRASAD",
+            "account_number": "007510101062473",
+            "ifsc_code": "HDFC0001234",
+            "bank_name": "HDFC BANK",
+            "branch": "Vadodara",
+            "monthly_income": "50000",
+            "employer": "Parul University",
+            "employment_type": "Salaried",
+            "mobile": "9876789878",
+            "email": "user@example.com",
+            "marital_status": "Single",
+            "education": "Graduate",
+            "civil_score": 850,
+            "city": "Vadodara",
+            "state": "Gujarat"
+        },
+        "documents": {
+            "pan": {
+                "url": "https://res.cloudinary.com/dwzemlern/raw/upload/v1774555682/tai-documents/pan/kwajlsnwuo1kvnnwpwmn.pdf",
+                "public_id": "tai-documents/pan/kwajlsnwuo1kvnnwpwmn.pdf"
+            },
+            "salary_slip": {
+                "url": "https://res.cloudinary.com/dwzemlern/raw/upload/v1774555682/tai-documents/salary_slip/zoyuj2vhrnfecqorthyu.pdf",
+                "public_id": "tai-documents/salary_slip/zoyuj2vhrnfecqorthyu.pdf"
+            },
+            "aadhar": {
+                "url": "https://res.cloudinary.com/dwzemlern/raw/upload/v1774555682/tai-documents/aadhar/wxx97i1nsz3hprrdyomm.pdf",
+                "public_id": "tai-documents/aadhar/wxx97i1nsz3hprrdyomm.pdf"
+            },
+            "bank_statement": {
+                "url": "https://res.cloudinary.com/dwzemlern/raw/upload/v1774555683/tai-documents/bank_statement/lo2aazfrhsj95rjfue8z.pdf",
+                "public_id": "tai-documents/bank_statement/lo2aazfrhsj95rjfue8z.pdf"
+            }
+        },
+        "status": "approved",
+        "submitted_at": "2026-03-26T20:16:50.452Z",
+        "timestamp": "2026-03-26T20:16:50.452Z",
+        "updated_at": "2026-03-26T20:17:51.464Z"
     }
 ]

@@ -1,12 +1,14 @@
 const express = require('express');
 const cors = require('cors');
-const { MongoClient, ObjectId } = require('mongodb');
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const multer = require('multer');
-
-// Multer storage config for KYC document uploads
+const mongoose = require('mongoose');
+const cloudinary = require('cloudinary').v2;
+try {
+  require('dotenv').config();
+} catch (_) {}
 const uploadsDir = path.join(__dirname, 'uploads');
 if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
 
@@ -17,49 +19,72 @@ const storage = multer.diskStorage({
     cb(null, uniqueName);
   }
 });
-const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 } }); // 10MB limit
+const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 } });
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-
-// The port where our Python ML Microservice runs
 const ML_URL = 'http://127.0.0.1:5001';
+const OCR_URL = 'http://127.0.0.1:5002';
 const DB_FILE = path.join(__dirname, 'local_applications.json');
 const BLOCKED_FILE = path.join(__dirname, 'blocked_users.json');
+console.log('INFO: Running in offline mode with local JSON database.');
 
-let db;
-async function connectToMongo() {
-  const variations = [
-    { u: 'admin', p: 'admin123' },                  // The fresh user you just created
-    { u: 'TAI_DB_OWNER', p: 'Inapakolla@1' },       // Clean Version
-    { u: '<TAI_DB_OWNER>', p: '<Inapakolla@1>' },   // Literal Brackets Version
-    { u: 'TAI_DB_OWNER', p: '<Inapakolla@1>' },     // Brackets on Password only
-    { u: '<TAI_DB_OWNER>', p: 'Inapakolla@1' }      // Brackets on Username only
-  ];
+// ── MongoDB Connection ──────────────────────────────────────
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/tai_db';
+mongoose.connect(MONGODB_URI)
+  .then(() => console.log('✅ Connected to MongoDB'))
+  .catch(err => console.log('⚠️  MongoDB not connected (using local JSON):', err.message));
 
-  for (const cred of variations) {
-    try {
-      const client = await MongoClient.connect('mongodb+srv://tai.hb7jy19.mongodb.net/', {
-        auth: { username: cred.u, password: cred.p }
-      });
-      db = client.db('loan_db');
-      console.log(`SUCCESS: Connected to Cloud MongoDB using user: ${cred.u}`);
-      return;
-    } catch (err) {
-      if (String(err).includes('bad auth') || String(err).includes('Authentication failed')) {
-        continue; // Try the next variation
-      } else {
-        console.warn("WARNING: Network Error: ", err.message);
-        return;
-      }
-    }
+// ── Cloudinary Configuration ────────────────────────────────
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+// ── Mongoose Application Model ──────────────────────────────
+const applicationMongoSchema = new mongoose.Schema({
+  application_id: String,
+  selected_bank: String,
+  applicant: {
+    name: String, aadhar_number: String, pan_number: String,
+    date_of_birth: String, gender: String, address: String,
+    pincode: String, father_name: String, account_number: String,
+    ifsc_code: String, bank_name: String, branch: String,
+    monthly_income: String, employer: String, employment_type: String,
+    mobile: String, email: String, marital_status: String,
+    education: String, civil_score: String, city: String, state: String
+  },
+  documents: {
+    aadhar: { url: String, public_id: String },
+    pan: { url: String, public_id: String },
+    passbook: { url: String, public_id: String },
+    salary_slip: { url: String, public_id: String },
+    bank_statement: { url: String, public_id: String }
+  },
+  extracted_data: mongoose.Schema.Types.Mixed,
+  status: { type: String, default: 'submitted' },
+  submitted_at: { type: Date, default: Date.now },
+  timestamp: { type: Date, default: Date.now }
+});
+const ApplicationModel = mongoose.model('Application', applicationMongoSchema);
+
+// ── Cloudinary Upload Helper ────────────────────────────────
+async function uploadToCloudinary(filePath, folder = 'tai-documents') {
+  try {
+    const ext = path.extname(filePath).toLowerCase();
+    // PDFs must be uploaded as 'raw' to be viewable/downloadable
+    const resourceType = ext === '.pdf' ? 'raw' : 'image';
+    const result = await cloudinary.uploader.upload(filePath, {
+      folder, resource_type: resourceType
+    });
+    return { url: result.secure_url, public_id: result.public_id };
+  } catch (err) {
+    console.error('Cloudinary upload error:', err.message);
+    return null;
   }
-  console.warn("WARNING: ALL authentication variations failed. Falling back to 'local_applications.json' - Please verify credentials in Atlas UI.");
 }
-connectToMongo();
-
-// JSON fallback functions
 function readLocalDb() {
   try {
     if (fs.existsSync(DB_FILE)) {
@@ -76,15 +101,7 @@ function saveLocalDb(data) {
     console.error(`Error saving local DB: ${err}`);
   }
 }
-
-// Database Helpers
 async function dbInsertApplication(record) {
-  if (db) {
-    try {
-      const result = await db.collection('loan_applications').insertOne(record);
-      return result.insertedId.toString();
-    } catch (err) {}
-  }
   console.log("Using local JSON DB for insert.");
   const apps = readLocalDb();
   if (!record._id) record._id = crypto.randomUUID();
@@ -97,17 +114,6 @@ async function dbInsertApplication(record) {
 }
 
 async function dbUpdateApplication(appId, updateFields) {
-  if (db) {
-    try {
-      const oid = new ObjectId(appId);
-      const result = await db.collection('loan_applications').updateOne(
-        { _id: oid },
-        { $set: updateFields }
-      );
-      if (result.modifiedCount > 0) return true;
-    } catch (err) {}
-  }
-  
   const apps = readLocalDb();
   let updated = false;
   for (let app of apps) {
@@ -130,19 +136,7 @@ async function dbUpdateApplication(appId, updateFields) {
 }
 
 async function dbGetApplications(queryBank = null) {
-  let results = [];
-  if (db) {
-    try {
-      const query = queryBank ? { selected_bank: { $regex: new RegExp('^' + queryBank + '$', 'i') } } : {};
-      const apps = await db.collection('loan_applications')
-        .find(query)
-        .sort({ timestamp: -1 })
-        .limit(50)
-        .toArray();
-      results.push(...apps.map(a => ({ ...a, _id: a._id.toString() })));
-    } catch (err) {}
-  }
-  
+  const results = [];
   const localApps = readLocalDb();
   for (let app of localApps) {
     if (queryBank) {
@@ -169,14 +163,6 @@ async function dbGetApplications(queryBank = null) {
 }
 
 async function dbGetApplication(appId) {
-  if (db) {
-    try {
-      const oid = new ObjectId(appId);
-      const app = await db.collection('loan_applications').findOne({ _id: oid });
-      if (app) return { ...app, _id: app._id.toString() };
-    } catch(err) {}
-  }
-  
   const apps = readLocalDb();
   return apps.find(a => String(a._id) === String(appId)) || null;
 }
@@ -206,15 +192,9 @@ function removeBlockedUser(userKey) {
   }
 }
 
-// ----------------------------------------
-// Express API Routes
-// ----------------------------------------
-
 app.get('/health', (req, res) => {
-  res.json({ status: 'online', type: 'node_express', ml_service: ML_URL });
+  res.json({ status: 'online', type: 'node_express', ml_service: ML_URL, storage: 'local_json' });
 });
-
-// Admin Routes
 app.post('/admin/login', (req, res) => {
   const { username, password } = req.body;
   if (username === "admin" && password === "admin123") {
@@ -312,9 +292,6 @@ app.post('/admin/block-user', (req, res) => {
   else if (action === 'unblock') removeBlockedUser(user_key);
   res.json({ success: true });
 });
-
-
-// Core Routes (Frontend API)
 app.get('/applications', async (req, res) => {
   try {
     const bank = req.query.bank;
@@ -374,8 +351,6 @@ app.post('/update_status', async (req, res) => {
     res.status(500).json({ error: String(err) });
   }
 });
-
-// Proxy ML Routes via Node.js native fetch (v18+)
 app.post('/predict', async (req, res) => {
   try {
     console.log("Relaying prediction request to ML microservice...");
@@ -425,13 +400,107 @@ app.post('/officer_predict', async (req, res) => {
     res.status(500).json({ error: 'ML service is unreachable.' });
   }
 });
-
-// Serve uploaded files statically
 app.use('/uploads', express.static(uploadsDir));
 
-// ----------------------------------------
-// Bank Application Form - Full KYC Submission with Document Uploads
-// ----------------------------------------
+// ── Document Scan Endpoint (OCR + Cloudinary) ───────────────
+const scanUploadFields = upload.fields([
+  { name: 'aadhar', maxCount: 1 },
+  { name: 'pan', maxCount: 1 },
+  { name: 'passbook', maxCount: 1 },
+  { name: 'salary_slip', maxCount: 1 },
+  { name: 'bank_statement', maxCount: 1 }
+]);
+
+app.post('/scan-documents', scanUploadFields, async (req, res) => {
+  try {
+    const files = req.files || {};
+    const cloudinaryUrls = {};
+    const filePaths = {};
+
+    // Upload to Cloudinary + collect paths for OCR
+    const uploadPromises = [];
+    for (const [key, fileArr] of Object.entries(files)) {
+      if (fileArr && fileArr.length > 0) {
+        const file = fileArr[0];
+        filePaths[key] = file.path;
+        uploadPromises.push(
+          uploadToCloudinary(file.path, `tai-documents/${key}`).then(result => {
+            if (result) cloudinaryUrls[key] = result;
+          })
+        );
+      }
+    }
+    await Promise.all(uploadPromises);
+
+    // Forward file paths to OCR service
+    let extractedData = {};
+    try {
+      const ocrResponse = await fetch(`${OCR_URL}/scan`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ files: filePaths })
+      });
+      const ocrResult = await ocrResponse.json();
+      if (ocrResult.success) {
+        extractedData = ocrResult.extracted_data || {};
+      }
+    } catch (ocrErr) {
+      console.error('OCR service error:', ocrErr.message);
+    }
+
+    res.json({
+      success: true,
+      extracted_data: extractedData,
+      cloudinary_urls: cloudinaryUrls
+    });
+  } catch (err) {
+    console.error('Error in /scan-documents:', err);
+    res.status(500).json({ error: 'Failed to scan documents: ' + String(err) });
+  }
+});
+
+// ── Submit Scanned Application (MongoDB + Cloudinary URLs) ──
+app.post('/submit-scanned-application', async (req, res) => {
+  try {
+    const { application_id, selected_bank, applicant, documents } = req.body;
+
+    const appDoc = new ApplicationModel({
+      application_id: application_id || null,
+      selected_bank: selected_bank || null,
+      applicant: applicant || {},
+      documents: documents || {},
+      status: 'submitted',
+      submitted_at: new Date(),
+      timestamp: new Date()
+    });
+
+    const saved = await appDoc.save();
+
+    // Also save to local JSON for backward compatibility
+    try {
+      await dbInsertApplication({
+        _id: saved._id.toString(),
+        selected_bank,
+        applicant,
+        documents,
+        status: 'submitted',
+        submitted_at: new Date().toISOString(),
+        timestamp: new Date().toISOString()
+      });
+    } catch (e) {}
+
+    res.json({
+      success: true,
+      message: 'Application submitted successfully!',
+      application_id: saved._id.toString()
+    });
+  } catch (err) {
+    console.error('Error in /submit-scanned-application:', err);
+    res.status(500).json({ error: 'Failed to submit application: ' + String(err) });
+  }
+});
+
+// ── Legacy KYC Submit (kept for backward compatibility) ─────
 const kycUploadFields = upload.fields([
   { name: 'aadhar_pdf', maxCount: 1 },
   { name: 'pan_pdf', maxCount: 1 },
@@ -445,8 +514,6 @@ app.post('/submit-application', kycUploadFields, async (req, res) => {
   try {
     const body = req.body;
     const files = req.files || {};
-
-    // Build file paths map
     const filePaths = {};
     for (const [key, fileArr] of Object.entries(files)) {
       if (fileArr && fileArr.length > 0) {
@@ -458,32 +525,23 @@ app.post('/submit-application', kycUploadFields, async (req, res) => {
       application_id: body.application_id || null,
       selected_bank: body.selected_bank || null,
       applicant: {
-        name: body.name || '',
-        aadhar_number: body.aadhar_number || '',
-        pan_number: body.pan_number || '',
-        mobile: body.mobile || '',
-        email: body.email || '',
-        date_of_birth: body.date_of_birth || '',
-        gender: body.gender || '',
-        marital_status: body.marital_status || '',
-        education: body.education || '',
-        employment_type: body.employment_type || '',
-        civil_score: body.civil_score || '',
-        monthly_income: body.monthly_income || '',
-        address: body.address || '',
-        city: body.city || '',
-        state: body.state || '',
-        pincode: body.pincode || ''
+        name: body.name || '', aadhar_number: body.aadhar_number || '',
+        pan_number: body.pan_number || '', mobile: body.mobile || '',
+        email: body.email || '', date_of_birth: body.date_of_birth || '',
+        gender: body.gender || '', marital_status: body.marital_status || '',
+        education: body.education || '', employment_type: body.employment_type || '',
+        civil_score: body.civil_score || '', monthly_income: body.monthly_income || '',
+        address: body.address || '', city: body.city || '',
+        state: body.state || '', pincode: body.pincode || ''
       },
       documents: filePaths,
       status: 'submitted',
       submitted_at: new Date().toISOString(),
       timestamp: new Date().toISOString()
     };
-
-    // If we have an existing application_id, update it
     if (body.application_id) {
       const updated = await dbUpdateApplication(body.application_id, {
+        selected_bank: body.selected_bank || null,
         applicant: applicationRecord.applicant,
         documents: applicationRecord.documents,
         status: 'submitted',
@@ -493,8 +551,6 @@ app.post('/submit-application', kycUploadFields, async (req, res) => {
         return res.json({ success: true, message: 'Application submitted successfully!', application_id: body.application_id });
       }
     }
-
-    // Otherwise insert as new record
     const appId = await dbInsertApplication(applicationRecord);
     res.json({ success: true, message: 'Application submitted successfully!', application_id: appId });
   } catch (err) {

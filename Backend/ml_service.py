@@ -24,8 +24,6 @@ except ImportError as e:
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
-
-# Global Variables for Models
 approval_model = None
 bank_model = None
 bank_encoder = None
@@ -104,5 +102,4 @@ def officer_predict_endpoint():
 
 if __name__ == '__main__':
     load_models()
-    # Run on Port 5001 to leave 5000 for Node.js
     app.run(debug=True, host='0.0.0.0', port=5001)

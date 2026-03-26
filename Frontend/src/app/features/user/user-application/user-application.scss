@@ -1,4 +1,4 @@
-/* ===== Application Form Styles ===== */
+/* ===== Document Scan Application Styles ===== */
 
 .app-card {
     @apply bg-white dark:bg-slate-800 rounded-2xl p-6 md:p-8 shadow-lg dark:shadow-none
@@ -24,33 +24,21 @@
     @apply flex items-center gap-3 mb-6 pb-4 border-b border-gray-100 dark:border-slate-700;
 }
 
-.section-icon {
-    @apply text-2xl;
-}
+.section-icon { @apply text-2xl; }
+.section-title { @apply text-xl font-bold text-gray-800 dark:text-white; }
 
-.section-title {
-    @apply text-xl font-bold text-gray-800 dark:text-white;
-}
-
-.form-grid {
-    @apply grid grid-cols-1 md:grid-cols-2 gap-5;
-}
+.form-grid { @apply grid grid-cols-1 md:grid-cols-2 gap-5; }
 
 .form-group {
     @apply flex flex-col gap-1.5;
-
-    &.full-width {
-        @apply md:col-span-2;
-    }
+    &.full-width { @apply md:col-span-2; }
 }
 
 .form-label {
-    @apply text-sm font-semibold text-gray-600 dark:text-slate-300 tracking-wide;
+    @apply text-sm font-semibold text-gray-600 dark:text-slate-300 tracking-wide flex items-center gap-2;
 }
 
-.required {
-    @apply text-red-500;
-}
+.required { @apply text-red-500; }
 
 .form-input {
     @apply w-full bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600
@@ -76,26 +64,57 @@ select.form-input {
     padding-right: 36px;
 }
 
-textarea.form-input {
-    resize: vertical;
-    min-height: 64px;
+textarea.form-input { resize: vertical; min-height: 64px; }
+
+/* ===== AI Badge ===== */
+.ai-badge {
+    @apply inline-flex items-center px-1.5 py-0.5 rounded text-xs font-bold
+           bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400;
 }
 
-/* Upload Section */
-.upload-grid {
+/* ===== Stepper ===== */
+.stepper-dot {
+    @apply w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold
+           bg-gray-200 dark:bg-slate-700 text-gray-500 dark:text-slate-400
+           transition-all duration-300;
+
+    &.active {
+        @apply bg-blue-500 text-white shadow-lg shadow-blue-500/30;
+    }
+
+    &.done {
+        @apply bg-green-500 text-white shadow-lg shadow-green-500/30;
+    }
+}
+
+.stepper-label {
+    @apply text-sm font-semibold text-gray-400 dark:text-slate-500 transition-colors duration-300 hidden sm:inline;
+    &.active { @apply text-gray-700 dark:text-white; }
+}
+
+.stepper-line {
+    @apply w-12 md:w-20 h-0.5 bg-gray-200 dark:bg-slate-700 mx-2 transition-colors duration-500;
+    &.active { @apply bg-blue-500; }
+}
+
+/* ===== Document Upload Grid ===== */
+.doc-grid {
     @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4;
 }
 
-.upload-card {
-    @apply relative rounded-xl border-2 border-dashed border-gray-200 dark:border-slate-600
-           transition-all duration-300 overflow-hidden;
+.doc-upload-card {
+    @apply relative rounded-2xl border-2 border-dashed border-gray-200 dark:border-slate-600
+           transition-all duration-300 overflow-hidden bg-gray-50/50 dark:bg-slate-900/30;
 
     &:hover {
-        @apply border-blue-400 dark:border-blue-500;
+        @apply border-blue-400 dark:border-blue-500 bg-blue-50/30 dark:bg-blue-900/10;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px -5px rgba(59, 130, 246, 0.15);
     }
 
     &.uploaded {
-        @apply border-solid border-green-400 dark:border-green-500 bg-green-50/50 dark:bg-green-900/10;
+        @apply border-solid border-green-400 dark:border-green-500/60
+               bg-green-50/50 dark:bg-green-900/10;
     }
 }
 
@@ -104,29 +123,57 @@ textarea.form-input {
     z-index: 10;
 }
 
-.upload-label {
-    @apply flex flex-col items-center justify-center p-5 text-center cursor-pointer gap-2;
-    min-height: 130px;
+.doc-upload-content {
+    @apply flex flex-col items-center justify-center p-6 text-center cursor-pointer gap-2;
+    min-height: 180px;
 }
 
-.upload-icon {
-    @apply text-4xl text-gray-300 dark:text-slate-500;
+.doc-uploaded-content {
+    @apply flex flex-col items-center justify-center p-6 text-center gap-2;
+    min-height: 180px;
 }
 
-.upload-title {
-    @apply text-sm font-semibold text-gray-700 dark:text-slate-300;
+.doc-icon-ring {
+    @apply w-14 h-14 rounded-full bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center mb-1;
+
+    mat-icon {
+        @apply text-blue-500 dark:text-blue-400;
+        font-size: 28px;
+        width: 28px;
+        height: 28px;
+    }
+
+    &.uploaded-ring {
+        @apply bg-green-50 dark:bg-green-900/30;
+        mat-icon { @apply text-green-500 dark:text-green-400; }
+    }
 }
 
-.upload-hint {
+.doc-label {
+    @apply text-sm font-bold text-gray-700 dark:text-slate-200;
+}
+
+.doc-desc {
     @apply text-xs text-gray-400 dark:text-slate-500;
 }
 
-.upload-filename {
+.doc-cta {
+    @apply text-xs text-blue-500 dark:text-blue-400 font-semibold flex items-center gap-1 mt-1;
+}
+
+.doc-filename {
     @apply text-xs text-green-600 dark:text-green-400 font-medium truncate max-w-full px-2;
 }
 
-/* Submit Button */
-.submit-btn {
+.doc-remove-btn {
+    @apply text-xs text-red-400 hover:text-red-600 dark:hover:text-red-300 flex items-center gap-0.5
+           mt-1 cursor-pointer transition-colors duration-200;
+    z-index: 20;
+    position: relative;
+}
+
+/* ===== Scan Button ===== */
+.scan-btn {
     @apply px-8 py-3 text-base font-bold rounded-xl shadow-lg shadow-blue-500/20
            dark:shadow-blue-500/10 transition-all duration-300 flex items-center;
 
@@ -140,23 +187,68 @@ textarea.form-input {
     }
 }
 
-/* Animations */
+/* ===== Scanning Animation ===== */
+.scan-card {
+    animation: scaleIn 0.5s ease-out;
+}
+
+.scan-visual {
+    @apply relative w-32 h-32 mx-auto flex items-center justify-center;
+}
+
+.scan-ring-outer {
+    @apply absolute inset-0 rounded-full border-4 border-blue-200 dark:border-blue-800;
+    animation: spin-slow 4s linear infinite;
+    border-top-color: #3b82f6;
+    border-right-color: #3b82f6;
+}
+
+.scan-ring-inner {
+    @apply absolute rounded-full border-4 border-indigo-200 dark:border-indigo-800;
+    top: 12px; left: 12px; right: 12px; bottom: 12px;
+    animation: spin-slow 3s linear infinite reverse;
+    border-bottom-color: #6366f1;
+    border-left-color: #6366f1;
+}
+
+.scan-center-icon {
+    @apply text-blue-500 dark:text-blue-400 z-10;
+    font-size: 40px !important;
+    width: 40px !important;
+    height: 40px !important;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* ===== Submit Button ===== */
+.submit-btn {
+    @apply px-8 py-3 text-base font-bold rounded-xl shadow-lg shadow-blue-500/20
+           dark:shadow-blue-500/10 transition-all duration-300 flex items-center;
+
+    &:not(:disabled):hover {
+        @apply shadow-xl shadow-blue-500/30;
+        transform: translateY(-1px);
+    }
+
+    &:disabled { @apply opacity-50 cursor-not-allowed; }
+}
+
+/* ===== Animations ===== */
 @keyframes scaleIn {
-    from {
-        transform: scale(0.85);
-        opacity: 0;
-    }
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
+    from { transform: scale(0.85); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
 }
 
 @keyframes pulse-ring {
-    0%, 100% {
-        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.3);
-    }
-    50% {
-        box-shadow: 0 0 0 12px rgba(34, 197, 94, 0);
-    }
+    0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.3); }
+    50% { box-shadow: 0 0 0 12px rgba(34, 197, 94, 0); }
+}
+
+@keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(0.9); }
 }

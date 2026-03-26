@@ -89,6 +89,130 @@
                 </div>
             </div>
 
+            <!-- KYC Identity (Scanned Applications) -->
+            <div *ngIf="applicant.isScanned" class="glass-panel p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 bg-white dark:bg-slate-800 transition-colors duration-500">
+                <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-6 flex items-center gap-3">
+                    <div class="p-2 bg-indigo-50 dark:bg-indigo-900/30 rounded-lg text-indigo-500"><mat-icon>badge</mat-icon></div>
+                    KYC Identity Details
+                    <span class="ml-auto text-xs font-bold bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-1 rounded-full">AI Extracted</span>
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                    <div class="p-4 rounded-xl bg-gray-50 dark:bg-slate-900/50 border border-transparent dark:border-slate-700/50">
+                        <div class="text-gray-500 dark:text-slate-400 mb-1">Aadhar Number</div>
+                        <div class="font-bold text-gray-900 dark:text-slate-100 text-lg font-mono">{{ applicant.aadhar_number || 'N/A' }}</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-gray-50 dark:bg-slate-900/50 border border-transparent dark:border-slate-700/50">
+                        <div class="text-gray-500 dark:text-slate-400 mb-1">PAN Number</div>
+                        <div class="font-bold text-gray-900 dark:text-slate-100 text-lg font-mono">{{ applicant.pan_number || 'N/A' }}</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-gray-50 dark:bg-slate-900/50 border border-transparent dark:border-slate-700/50">
+                        <div class="text-gray-500 dark:text-slate-400 mb-1">Date of Birth</div>
+                        <div class="font-bold text-gray-900 dark:text-slate-100 text-lg">{{ applicant.date_of_birth || 'N/A' }}</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-gray-50 dark:bg-slate-900/50 border border-transparent dark:border-slate-700/50">
+                        <div class="text-gray-500 dark:text-slate-400 mb-1">Father's Name</div>
+                        <div class="font-bold text-gray-900 dark:text-slate-100 text-lg">{{ applicant.father_name || 'N/A' }}</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-gray-50 dark:bg-slate-900/50 border border-transparent dark:border-slate-700/50">
+                        <div class="text-gray-500 dark:text-slate-400 mb-1">Education</div>
+                        <div class="font-bold text-gray-900 dark:text-slate-100 text-lg">{{ applicant.education || 'N/A' }}</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-gray-50 dark:bg-slate-900/50 border border-transparent dark:border-slate-700/50">
+                        <div class="text-gray-500 dark:text-slate-400 mb-1">Marital Status</div>
+                        <div class="font-bold text-gray-900 dark:text-slate-100 text-lg">{{ applicant.marital_status || 'N/A' }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bank Details (Scanned Applications) -->
+            <div *ngIf="applicant.isScanned && applicant.account_number" class="glass-panel p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 bg-white dark:bg-slate-800 transition-colors duration-500">
+                <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-6 flex items-center gap-3">
+                    <div class="p-2 bg-amber-50 dark:bg-amber-900/30 rounded-lg text-amber-500"><mat-icon>account_balance</mat-icon></div>
+                    Bank Account Details
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                    <div class="p-4 rounded-xl bg-gray-50 dark:bg-slate-900/50 border border-transparent dark:border-slate-700/50">
+                        <div class="text-gray-500 dark:text-slate-400 mb-1">Account Number</div>
+                        <div class="font-bold text-gray-900 dark:text-slate-100 text-lg font-mono">{{ applicant.account_number }}</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-gray-50 dark:bg-slate-900/50 border border-transparent dark:border-slate-700/50">
+                        <div class="text-gray-500 dark:text-slate-400 mb-1">IFSC Code</div>
+                        <div class="font-bold text-gray-900 dark:text-slate-100 text-lg font-mono">{{ applicant.ifsc_code || 'N/A' }}</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-gray-50 dark:bg-slate-900/50 border border-transparent dark:border-slate-700/50">
+                        <div class="text-gray-500 dark:text-slate-400 mb-1">Bank Name</div>
+                        <div class="font-bold text-gray-900 dark:text-slate-100 text-lg">{{ applicant.bank_name || 'N/A' }}</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-gray-50 dark:bg-slate-900/50 border border-transparent dark:border-slate-700/50">
+                        <div class="text-gray-500 dark:text-slate-400 mb-1">Branch</div>
+                        <div class="font-bold text-gray-900 dark:text-slate-100 text-lg">{{ applicant.branch || 'N/A' }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Address (Scanned Applications) -->
+            <div *ngIf="applicant.isScanned && applicant.address" class="glass-panel p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 bg-white dark:bg-slate-800 transition-colors duration-500">
+                <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-6 flex items-center gap-3">
+                    <div class="p-2 bg-orange-50 dark:bg-orange-900/30 rounded-lg text-orange-500"><mat-icon>home</mat-icon></div>
+                    Residential Address
+                </h3>
+                <div class="p-4 rounded-xl bg-gray-50 dark:bg-slate-900/50 border border-transparent dark:border-slate-700/50">
+                    <div class="font-bold text-gray-900 dark:text-slate-100">{{ applicant.address }}</div>
+                    <div *ngIf="applicant.pincode" class="text-gray-500 dark:text-slate-400 mt-1">PIN: {{ applicant.pincode }}</div>
+                </div>
+            </div>
+
+            <!-- Uploaded Documents (Scanned Applications) -->
+            <div *ngIf="applicant.isScanned" class="glass-panel p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 bg-white dark:bg-slate-800 transition-colors duration-500">
+                <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-6 flex items-center gap-3">
+                    <div class="p-2 bg-rose-50 dark:bg-rose-900/30 rounded-lg text-rose-500"><mat-icon>folder_open</mat-icon></div>
+                    Uploaded Documents
+                    <span class="ml-auto text-xs font-bold bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-2 py-1 rounded-full">Cloudinary</span>
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <a *ngIf="applicant.documents?.aadhar?.url" [href]="getDocUrl(applicant.documents.aadhar.url)" target="_blank"
+                        class="flex items-center gap-3 p-4 rounded-xl bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-600 hover:border-blue-400 dark:hover:border-blue-500 transition-colors">
+                        <mat-icon class="text-blue-500">badge</mat-icon>
+                        <div>
+                            <div class="font-bold text-sm text-gray-800 dark:text-slate-200">Aadhar Card</div>
+                            <div class="text-xs text-blue-500">View Document ↗</div>
+                        </div>
+                    </a>
+                    <a *ngIf="applicant.documents?.pan?.url" [href]="getDocUrl(applicant.documents.pan.url)" target="_blank"
+                        class="flex items-center gap-3 p-4 rounded-xl bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-600 hover:border-blue-400 dark:hover:border-blue-500 transition-colors">
+                        <mat-icon class="text-indigo-500">credit_card</mat-icon>
+                        <div>
+                            <div class="font-bold text-sm text-gray-800 dark:text-slate-200">PAN Card</div>
+                            <div class="text-xs text-blue-500">View Document ↗</div>
+                        </div>
+                    </a>
+                    <a *ngIf="applicant.documents?.passbook?.url" [href]="getDocUrl(applicant.documents.passbook.url)" target="_blank"
+                        class="flex items-center gap-3 p-4 rounded-xl bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-600 hover:border-blue-400 dark:hover:border-blue-500 transition-colors">
+                        <mat-icon class="text-amber-500">account_balance</mat-icon>
+                        <div>
+                            <div class="font-bold text-sm text-gray-800 dark:text-slate-200">Bank Passbook</div>
+                            <div class="text-xs text-blue-500">View Document ↗</div>
+                        </div>
+                    </a>
+                    <a *ngIf="applicant.documents?.salary_slip?.url" [href]="getDocUrl(applicant.documents.salary_slip.url)" target="_blank"
+                        class="flex items-center gap-3 p-4 rounded-xl bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-600 hover:border-blue-400 dark:hover:border-blue-500 transition-colors">
+                        <mat-icon class="text-emerald-500">payments</mat-icon>
+                        <div>
+                            <div class="font-bold text-sm text-gray-800 dark:text-slate-200">Salary Statement</div>
+                            <div class="text-xs text-blue-500">View Document ↗</div>
+                        </div>
+                    </a>
+                    <a *ngIf="applicant.documents?.bank_statement?.url" [href]="getDocUrl(applicant.documents.bank_statement.url)" target="_blank"
+                        class="flex items-center gap-3 p-4 rounded-xl bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-600 hover:border-blue-400 dark:hover:border-blue-500 transition-colors">
+                        <mat-icon class="text-rose-500">receipt_long</mat-icon>
+                        <div>
+                            <div class="font-bold text-sm text-gray-800 dark:text-slate-200">Bank Statement (6M)</div>
+                            <div class="text-xs text-blue-500">View Document ↗</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
         </div>
 
         <!-- Right Column: AI Analysis -->

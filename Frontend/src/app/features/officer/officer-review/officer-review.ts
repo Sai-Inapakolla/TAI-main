@@ -63,35 +63,50 @@ export class OfficerReview implements OnInit {
       next: (app) => {
         this.rawApplication = app;
         const input = app.input || {};
+        const applicantData = app.applicant || {};
 
         // Helper to get value from either TitleCase or camelCase
         const getVal = (keyTitle: string, keyCamel: string) => input[keyTitle] !== undefined ? input[keyTitle] : input[keyCamel];
 
+        // Determine if this is a scanned application (has applicant sub-object)
+        const isScanned = !!app.applicant?.name;
+
         this.applicant = {
           id: app._id,
-          name: input.Name || input.name || 'Applicant ' + app._id.substr(-4),
-          mobile: input.Mobile || input.mobile || 'N/A',
-          age: getVal('Age', 'age'),
-          gender: getVal('Gender', 'gender'), // Likely string "Male"/"Female"
-          occupation: (getVal('Self_Employed', 'selfEmployed') === 'Yes' || getVal('Self_Employed', 'selfEmployed') === 1) ? 'Self Employed' : 'Salaried',
-          income: getVal('ApplicantIncome', 'applicantIncome'),
-          loanAmount: getVal('LoanAmount', 'loanAmount'),
-          tenure: getVal('Loan_Amount_Term', 'tenure'),
-          creditScore: getVal('Hidden_CIBIL', 'creditScore') || 0,
+          name: applicantData.name || input.Name || input.name || 'Applicant ' + app._id.substr(-4),
+          mobile: applicantData.mobile || input.Mobile || input.mobile || 'N/A',
+          age: getVal('Age', 'age') || 0,
+          gender: applicantData.gender || getVal('Gender', 'gender') || '-',
+          occupation: applicantData.employment_type || ((getVal('Self_Employed', 'selfEmployed') === 'Yes' || getVal('Self_Employed', 'selfEmployed') === 1) ? 'Self Employed' : 'Salaried'),
+          income: applicantData.monthly_income || getVal('ApplicantIncome', 'applicantIncome') || 0,
+          loanAmount: getVal('LoanAmount', 'loanAmount') || 0,
+          tenure: getVal('Loan_Amount_Term', 'tenure') || 0,
+          creditScore: applicantData.civil_score || getVal('Hidden_CIBIL', 'creditScore') || 0,
           risk: 'Pending Analysis',
-          approvalProbability: 0
+          approvalProbability: 0,
+          eligibleAmount: 0,
+          // New fields from scanned applications
+          email: applicantData.email || '',
+          aadhar_number: applicantData.aadhar_number || '',
+          pan_number: applicantData.pan_number || '',
+          date_of_birth: applicantData.date_of_birth || '',
+          address: applicantData.address || '',
+          pincode: applicantData.pincode || '',
+          employer: applicantData.employer || '',
+          account_number: applicantData.account_number || '',
+          ifsc_code: applicantData.ifsc_code || '',
+          bank_name: applicantData.bank_name || '',
+          branch: applicantData.branch || '',
+          father_name: applicantData.father_name || '',
+          education: applicantData.education || '',
+          marital_status: applicantData.marital_status || '',
+          documents: app.documents || {},
+          isScanned: isScanned
         };
 
         // Normalize Gender display if it came as 1/0
         if (this.applicant.gender === 1) this.applicant.gender = 'Male';
         if (this.applicant.gender === 0) this.applicant.gender = 'Female';
-
-        // Pre-fill if available
-        // The instruction implies to leave finalCibilScore null so the user can optionally enter it.
-        // If they click Analyze with empty, we use system.
-        // if (input.Hidden_CIBIL) {
-        //   this.finalCibilScore = input.Hidden_CIBIL;
-        // }
 
         this.loading = false;
       },
@@ -181,6 +196,16 @@ export class OfficerReview implements OnInit {
     }
     return 0; // Default to HDFC if unknown
 
+  }
+
+  // Fix Cloudinary PDF URLs for viewing
+  getDocUrl(url: string): string {
+    if (!url) return '';
+    // PDFs uploaded as 'image' type: render page 1 as JPG
+    if (url.toLowerCase().endsWith('.pdf') && url.includes('/image/upload/')) {
+      return url.replace('.pdf', '.jpg');
+    }
+    return url;
   }
 
   approveLoan() {

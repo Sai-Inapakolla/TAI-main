@@ -48,4 +48,12 @@ export class LoanService {
     submitApplication(formData: FormData): Observable<any> {
         return this.http.post<any>('http://localhost:5000/submit-application', formData);
     }
+
+    scanDocuments(formData: FormData): Observable<any> {
+        return this.http.post<any>('http://localhost:5000/scan-documents', formData);
+    }
+
+    submitScannedApplication(payload: any): Observable<any> {
+        return this.http.post<any>('http://localhost:5000/submit-scanned-application', payload);
+    }
 }
