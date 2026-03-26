@@ -50,3 +50,6 @@ __pycache__/
 .venv/
 env/
 venv/
+
+# Uploads
+Backend/uploads/
